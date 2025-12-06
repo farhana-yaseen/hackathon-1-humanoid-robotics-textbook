@@ -1,0 +1,15 @@
+{
+  "id": "appendices/hardware-requirements",
+  "title": "Appendices: Hardware Requirements",
+  "description": "This appendix provides a comprehensive overview of the hardware considerations essential for developing, simulating, and deploying humanoid robotics systems. From high-fidelity digital twin environments to compact edge computing kits and various physical robot lab configurations, understanding the nuances of each component is critical for successful implementation. We will also explore the architectural integration, the role of cloud-based solutions, economical student kits, and the pervasive challenge of latency in real-time robotic control.",
+  "source": "@site/docs/appendices/hardware-requirements.md",
+  "sourceDirName": "appendices",
+  "slug": "/appendices/hardware-requirements",
+  "permalink": "/humanoid-robotics-textbook/docs/appendices/hardware-requirements",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-github-username/humanoid-robotics-textbook/tree/main/website/docs/appendices/hardware-requirements.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

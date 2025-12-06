@@ -1,0 +1,23 @@
+{
+  "id": "intro",
+  "title": "Humanoid Robotics Textbook Introduction",
+  "description": "Welcome to the Humanoid Robotics Textbook! This book aims to bridge the gap between digital AI and physical robot control, focusing on embodied intelligence and practical applications.",
+  "source": "@site/docs/intro.md",
+  "sourceDirName": ".",
+  "slug": "/intro",
+  "permalink": "/humanoid-robotics-textbook/docs/intro",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-github-username/humanoid-robotics-textbook/tree/main/website/docs/intro.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1
+  },
+  "sidebar": "modulesSidebar",
+  "next": {
+    "title": "Chapter 1: Introduction to Physical AI and Humanoid Robotics",
+    "permalink": "/humanoid-robotics-textbook/docs/introduction/chapter1"
+  }
+}

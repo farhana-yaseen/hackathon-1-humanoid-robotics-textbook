@@ -1,0 +1,15 @@
+{
+  "id": "module3/overview",
+  "title": "overview",
+  "description": "Module 3 Overview",
+  "source": "@site/docs/module3/overview.md",
+  "sourceDirName": "module3",
+  "slug": "/module3/overview",
+  "permalink": "/humanoid-robotics-textbook/docs/module3/overview",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-github-username/humanoid-robotics-textbook/tree/main/website/docs/module3/overview.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

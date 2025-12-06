@@ -7,7 +7,7 @@ build/
 .env*
 
 # Docusaurus-specific
-.docusaurus/
+
 
 # IDEs and OS
 .DS_Store

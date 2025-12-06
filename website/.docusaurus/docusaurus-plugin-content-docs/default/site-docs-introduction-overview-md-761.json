@@ -1,0 +1,15 @@
+{
+  "id": "introduction/overview",
+  "title": "overview",
+  "description": "Introduction Overview",
+  "source": "@site/docs/introduction/overview.md",
+  "sourceDirName": "introduction",
+  "slug": "/introduction/overview",
+  "permalink": "/humanoid-robotics-textbook/docs/introduction/overview",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-github-username/humanoid-robotics-textbook/tree/main/website/docs/introduction/overview.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

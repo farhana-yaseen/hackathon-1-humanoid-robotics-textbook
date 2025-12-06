@@ -1,0 +1,15 @@
+{
+  "id": "module1/module1-personalized-example",
+  "title": "Module 1: Personalized Example",
+  "description": "This chapter demonstrates personalized content based on your background.",
+  "source": "@site/docs/module1/module1-personalized-example.mdx",
+  "sourceDirName": "module1",
+  "slug": "/module1/module1-personalized-example",
+  "permalink": "/humanoid-robotics-textbook/docs/module1/module1-personalized-example",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-github-username/humanoid-robotics-textbook/tree/main/website/docs/module1/module1-personalized-example.mdx",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

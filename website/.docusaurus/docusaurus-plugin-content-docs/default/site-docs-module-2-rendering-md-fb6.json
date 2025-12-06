@@ -1,0 +1,15 @@
+{
+  "id": "module2/rendering",
+  "title": "rendering",
+  "description": "Module 2 Rendering",
+  "source": "@site/docs/module2/rendering.md",
+  "sourceDirName": "module2",
+  "slug": "/module2/rendering",
+  "permalink": "/humanoid-robotics-textbook/docs/module2/rendering",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-github-username/humanoid-robotics-textbook/tree/main/website/docs/module2/rendering.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

@@ -1,0 +1,24 @@
+{
+  "id": "capstone/overview",
+  "title": "overview",
+  "description": "Capstone Overview",
+  "source": "@site/docs/capstone/overview.md",
+  "sourceDirName": "capstone",
+  "slug": "/capstone/overview",
+  "permalink": "/humanoid-robotics-textbook/docs/capstone/overview",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-github-username/humanoid-robotics-textbook/tree/main/website/docs/capstone/overview.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "modulesSidebar",
+  "previous": {
+    "title": "Module 4: Vision–Language–Action (VLA)",
+    "permalink": "/humanoid-robotics-textbook/docs/module4/chapter1"
+  },
+  "next": {
+    "title": "hardware-setup",
+    "permalink": "/humanoid-robotics-textbook/docs/appendices/hardware-setup"
+  }
+}

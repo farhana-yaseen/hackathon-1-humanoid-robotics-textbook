@@ -1,0 +1,15 @@
+{
+  "id": "module1/urdf",
+  "title": "urdf",
+  "description": "Module 1 URDF",
+  "source": "@site/docs/module1/urdf.md",
+  "sourceDirName": "module1",
+  "slug": "/module1/urdf",
+  "permalink": "/humanoid-robotics-textbook/docs/module1/urdf",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-github-username/humanoid-robotics-textbook/tree/main/website/docs/module1/urdf.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

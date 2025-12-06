@@ -1,0 +1,189 @@
+{
+  "docusaurus-plugin-content-docs": {
+    "default": {
+      "path": "/humanoid-robotics-textbook/docs",
+      "versions": [
+        {
+          "name": "current",
+          "label": "Next",
+          "isLast": true,
+          "path": "/humanoid-robotics-textbook/docs",
+          "mainDocId": "intro",
+          "docs": [
+            {
+              "id": "appendices/hardware-requirements",
+              "path": "/humanoid-robotics-textbook/docs/appendices/hardware-requirements"
+            },
+            {
+              "id": "appendices/hardware-setup",
+              "path": "/humanoid-robotics-textbook/docs/appendices/hardware-setup",
+              "sidebar": "modulesSidebar"
+            },
+            {
+              "id": "appendices/simulation-guides",
+              "path": "/humanoid-robotics-textbook/docs/appendices/simulation-guides",
+              "sidebar": "modulesSidebar"
+            },
+            {
+              "id": "capstone/overview",
+              "path": "/humanoid-robotics-textbook/docs/capstone/overview",
+              "sidebar": "modulesSidebar"
+            },
+            {
+              "id": "intro",
+              "path": "/humanoid-robotics-textbook/docs/intro",
+              "sidebar": "modulesSidebar"
+            },
+            {
+              "id": "introduction/chapter1",
+              "path": "/humanoid-robotics-textbook/docs/introduction/chapter1",
+              "sidebar": "modulesSidebar"
+            },
+            {
+              "id": "introduction/overview",
+              "path": "/humanoid-robotics-textbook/docs/introduction/overview"
+            },
+            {
+              "id": "module1/chapter1",
+              "path": "/humanoid-robotics-textbook/docs/module1/chapter1",
+              "sidebar": "modulesSidebar"
+            },
+            {
+              "id": "module1/middleware",
+              "path": "/humanoid-robotics-textbook/docs/module1/middleware"
+            },
+            {
+              "id": "module1/module1-personalized-example",
+              "path": "/humanoid-robotics-textbook/docs/module1/module1-personalized-example"
+            },
+            {
+              "id": "module1/overview",
+              "path": "/humanoid-robotics-textbook/docs/module1/overview"
+            },
+            {
+              "id": "module1/rclpy",
+              "path": "/humanoid-robotics-textbook/docs/module1/rclpy"
+            },
+            {
+              "id": "module1/urdf",
+              "path": "/humanoid-robotics-textbook/docs/module1/urdf"
+            },
+            {
+              "id": "module2/chapter1",
+              "path": "/humanoid-robotics-textbook/docs/module2/chapter1",
+              "sidebar": "modulesSidebar"
+            },
+            {
+              "id": "module2/environment-building",
+              "path": "/humanoid-robotics-textbook/docs/module2/environment-building"
+            },
+            {
+              "id": "module2/overview",
+              "path": "/humanoid-robotics-textbook/docs/module2/overview"
+            },
+            {
+              "id": "module2/physics",
+              "path": "/humanoid-robotics-textbook/docs/module2/physics"
+            },
+            {
+              "id": "module2/rendering",
+              "path": "/humanoid-robotics-textbook/docs/module2/rendering"
+            },
+            {
+              "id": "module2/sensor-simulation",
+              "path": "/humanoid-robotics-textbook/docs/module2/sensor-simulation"
+            },
+            {
+              "id": "module3/chapter1",
+              "path": "/humanoid-robotics-textbook/docs/module3/chapter1",
+              "sidebar": "modulesSidebar"
+            },
+            {
+              "id": "module3/isaac-ros",
+              "path": "/humanoid-robotics-textbook/docs/module3/isaac-ros"
+            },
+            {
+              "id": "module3/nav2",
+              "path": "/humanoid-robotics-textbook/docs/module3/nav2"
+            },
+            {
+              "id": "module3/overview",
+              "path": "/humanoid-robotics-textbook/docs/module3/overview"
+            },
+            {
+              "id": "module3/photorealistic-simulation",
+              "path": "/humanoid-robotics-textbook/docs/module3/photorealistic-simulation"
+            },
+            {
+              "id": "module4/chapter1",
+              "path": "/humanoid-robotics-textbook/docs/module4/chapter1",
+              "sidebar": "modulesSidebar"
+            },
+            {
+              "id": "module4/cognitive-planning",
+              "path": "/humanoid-robotics-textbook/docs/module4/cognitive-planning"
+            },
+            {
+              "id": "module4/llm-integration",
+              "path": "/humanoid-robotics-textbook/docs/module4/llm-integration"
+            },
+            {
+              "id": "module4/overview",
+              "path": "/humanoid-robotics-textbook/docs/module4/overview"
+            },
+            {
+              "id": "module4/vla",
+              "path": "/humanoid-robotics-textbook/docs/module4/vla"
+            },
+            {
+              "id": "textbook_outline",
+              "path": "/humanoid-robotics-textbook/docs/textbook_outline"
+            },
+            {
+              "id": "tutorial-basics/congratulations",
+              "path": "/humanoid-robotics-textbook/docs/tutorial-basics/congratulations"
+            },
+            {
+              "id": "tutorial-basics/create-a-blog-post",
+              "path": "/humanoid-robotics-textbook/docs/tutorial-basics/create-a-blog-post"
+            },
+            {
+              "id": "tutorial-basics/create-a-document",
+              "path": "/humanoid-robotics-textbook/docs/tutorial-basics/create-a-document"
+            },
+            {
+              "id": "tutorial-basics/create-a-page",
+              "path": "/humanoid-robotics-textbook/docs/tutorial-basics/create-a-page"
+            },
+            {
+              "id": "tutorial-basics/deploy-your-site",
+              "path": "/humanoid-robotics-textbook/docs/tutorial-basics/deploy-your-site"
+            },
+            {
+              "id": "tutorial-basics/markdown-features",
+              "path": "/humanoid-robotics-textbook/docs/tutorial-basics/markdown-features"
+            },
+            {
+              "id": "tutorial-extras/manage-docs-versions",
+              "path": "/humanoid-robotics-textbook/docs/tutorial-extras/manage-docs-versions"
+            },
+            {
+              "id": "tutorial-extras/translate-your-site",
+              "path": "/humanoid-robotics-textbook/docs/tutorial-extras/translate-your-site"
+            }
+          ],
+          "draftIds": [],
+          "sidebars": {
+            "modulesSidebar": {
+              "link": {
+                "path": "/humanoid-robotics-textbook/docs/intro",
+                "label": "intro"
+              }
+            }
+          }
+        }
+      ],
+      "breadcrumbs": true
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "id": "introduction/chapter1",
+  "title": "Chapter 1: Introduction to Physical AI and Humanoid Robotics",
+  "description": "Focus and Theme",
+  "source": "@site/docs/introduction/chapter1.md",
+  "sourceDirName": "introduction",
+  "slug": "/introduction/chapter1",
+  "permalink": "/humanoid-robotics-textbook/docs/introduction/chapter1",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-github-username/humanoid-robotics-textbook/tree/main/website/docs/introduction/chapter1.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "modulesSidebar",
+  "previous": {
+    "title": "Humanoid Robotics Textbook Introduction",
+    "permalink": "/humanoid-robotics-textbook/docs/intro"
+  },
+  "next": {
+    "title": "Module 1: The Robotic Nervous System (ROS 2)",
+    "permalink": "/humanoid-robotics-textbook/docs/module1/chapter1"
+  }
+}
