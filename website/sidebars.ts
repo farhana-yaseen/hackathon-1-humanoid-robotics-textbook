@@ -19,27 +19,27 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: 'Introduction to PhyAI & Humanoid Robotics',
-      items: ['introduction/overview'], // Assuming a subdirectory 'introduction'
+      items: ['introduction/chapter1'],
     },
     {
       type: 'category',
       label: 'Module 1: The Robotic Nervous System (ROS 2)',
-      items: ['module1/overview', 'module1/middleware', 'module1/rclpy', 'module1/urdf'],
+      items: ['module1/chapter1'],
     },
     {
       type: 'category',
       label: 'Module 2: The Digital Twin (Gazebo & Unity)',
-      items: ['module2/overview', 'module2/physics', 'module2/environment-building', 'module2/rendering', 'module2/sensor-simulation'],
+      items: ['module2/chapter1'],
     },
     {
       type: 'category',
       label: 'Module 3: The AI-Robot Brain (NVIDIA Isaac™)',
-      items: ['module3/overview', 'module3/photorealistic-simulation', 'module3/isaac-ros', 'module3/nav2'],
+      items: ['module3/chapter1'],
     },
     {
       type: 'category',
       label: 'Module 4: Vision-Language-Action (VLA)',
-      items: ['module4/overview', 'module4/llm-integration', 'module4/cognitive-planning'],
+      items: ['module4/chapter1'],
     },
     {
       type: 'category',
@@ -52,19 +52,6 @@ const sidebars: SidebarsConfig = {
       items: ['appendices/hardware-setup', 'appendices/simulation-guides'],
     },
   ],
-
-  // But you can create a sidebar manually
-  /*
-  tutorialSidebar: [
-    'intro',
-    'hello',
-    {
-      type: 'category',
-      label: 'Tutorial',
-      items: ['tutorial-basics/create-a-document'],
-    },
-  ],
-   */
 };
 
 export default sidebars;

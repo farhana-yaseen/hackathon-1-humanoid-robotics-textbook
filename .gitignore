@@ -1,0 +1,18 @@
+# Node.js
+node_modules/
+dist/
+build/
+.cache/
+*.log
+.env*
+
+# Docusaurus-specific
+.docusaurus/
+
+# IDEs and OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.tmp
+*.swp
