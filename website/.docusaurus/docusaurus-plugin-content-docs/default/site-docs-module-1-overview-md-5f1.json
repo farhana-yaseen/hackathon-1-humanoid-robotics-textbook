@@ -5,7 +5,7 @@
   "source": "@site/docs/module1/overview.md",
   "sourceDirName": "module1",
   "slug": "/module1/overview",
-  "permalink": "/humanoid-robotics-textbook/docs/module1/overview",
+  "permalink": "/docs/module1/overview",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/your-github-username/humanoid-robotics-textbook/tree/main/website/docs/module1/overview.md",

@@ -1,5 +1,5 @@
 {
-  "permalink": "/humanoid-robotics-textbook/blog/long-blog-post",
+  "permalink": "/blog/long-blog-post",
   "editUrl": "https://github.com/your-github-username/humanoid-robotics-textbook/tree/main/website/blog/2019-05-29-long-blog-post.md",
   "source": "@site/blog/2019-05-29-long-blog-post.md",
   "title": "Long Blog Post",
@@ -9,13 +9,13 @@
     {
       "inline": false,
       "label": "Hello",
-      "permalink": "/humanoid-robotics-textbook/blog/tags/hello",
+      "permalink": "/blog/tags/hello",
       "description": "Hello tag description"
     },
     {
       "inline": false,
       "label": "Docusaurus",
-      "permalink": "/humanoid-robotics-textbook/blog/tags/docusaurus",
+      "permalink": "/blog/tags/docusaurus",
       "description": "Docusaurus tag description"
     }
   ],
@@ -27,7 +27,7 @@
       "title": "Ex-Meta Staff Engineer, Co-founder GreatFrontEnd",
       "url": "https://linkedin.com/in/yangshun",
       "page": {
-        "permalink": "/humanoid-robotics-textbook/blog/authors/yangshun"
+        "permalink": "/blog/authors/yangshun"
       },
       "socials": {
         "x": "https://x.com/yangshunz",
@@ -51,10 +51,10 @@
   "unlisted": false,
   "prevItem": {
     "title": "MDX Blog Post",
-    "permalink": "/humanoid-robotics-textbook/blog/mdx-blog-post"
+    "permalink": "/blog/mdx-blog-post"
   },
   "nextItem": {
     "title": "First Blog Post",
-    "permalink": "/humanoid-robotics-textbook/blog/first-blog-post"
+    "permalink": "/blog/first-blog-post"
   }
 }
