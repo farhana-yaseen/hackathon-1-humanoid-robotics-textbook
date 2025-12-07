@@ -16,3 +16,6 @@ Thumbs.db
 .idea/
 *.tmp
 *.swp
+__pycache__/
+*.pyc
+

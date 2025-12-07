@@ -108,6 +108,11 @@ export default [
     exact: true
   },
   {
+    path: '/book',
+    component: ComponentCreator('/book', '73b'),
+    exact: true
+  },
+  {
     path: '/markdown-page',
     component: ComponentCreator('/markdown-page', '3d7'),
     exact: true

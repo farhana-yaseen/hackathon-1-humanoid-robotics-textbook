@@ -97,3 +97,11 @@
 - Gazebo simulation
 - Isaac-based perception pipeline
 - Capstone: Simulated humanoid with conversational AI
+
+
+import Chatbot from '@site/src/components/Chatbot';
+
+
+<Chatbot />
+
+You can select any section above and ask questions about it.
