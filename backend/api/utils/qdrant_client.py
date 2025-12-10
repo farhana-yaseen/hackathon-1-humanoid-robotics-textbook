@@ -23,7 +23,7 @@ def create_collection_if_not_exists():
     qdrant.create_collection(
         collection_name=COLLECTION_NAME,
         vectors_config=models.VectorParams(
-            size=1536,   # OpenAI embedding size
+            size=768,   # Google text-embedding-004 embedding size
             distance=models.Distance.COSINE
         )
     )

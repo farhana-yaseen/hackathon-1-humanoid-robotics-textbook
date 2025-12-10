@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-const BACKEND_URL = "http://127.0.0.1:8000/api/selected-chat-stream";
+// Use environment variable for backend URL, fallback to default
+const BACKEND_URL = process.env.BACKEND_API_URL || "http://127.0.0.1:8000/api/selected-chat-stream";
 
 const Chatbot: React.FC = () => {
   const [question, setQuestion] = useState("");
@@ -51,8 +52,19 @@ const Chatbot: React.FC = () => {
         const { done, value } = await reader.read();
         if (done) break;
 
-        result += decoder.decode(value);
-        setAnswer(result);
+        // Handle Server-Sent Events (SSE) format properly
+        const chunk = decoder.decode(value);
+        const lines = chunk.split('\n');
+
+        for (const line of lines) {
+          if (line.startsWith('data: ')) {
+            const data = line.substring(6); // Remove 'data: ' prefix
+            if (data !== '[DONE]') { // If not the end marker
+              result += data;
+              setAnswer(result);
+            }
+          }
+        }
       }
     } catch (error) {
       setAnswer("Network error. Backend is not reachable.");
