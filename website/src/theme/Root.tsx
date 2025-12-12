@@ -1,13 +1,11 @@
 import React from "react";
-import Chatbot from "@site/src/components/Chatbot";
+import ChatWidget from "@site/src/components/ChatWidget";
 
-
-  
 export default function Root({ children }) {
   return (
     <>
       {children}
-      <Chatbot />
+      <ChatWidget />
     </>
   );
 }

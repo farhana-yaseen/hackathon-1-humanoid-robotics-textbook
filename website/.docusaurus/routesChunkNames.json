@@ -42,6 +42,20 @@
       "plugin": "plugin---docusaurus-debugb-38-ad3"
     }
   },
+  "/auth/signin-a32": {
+    "__comp": "__comp---site-src-pages-auth-signin-tsx-687-a8d",
+    "__context": {
+      "plugin": "plugin---auth-signina-74-7af"
+    },
+    "config": "config---auth-signin-5-e-9-1f6"
+  },
+  "/auth/signup-94d": {
+    "__comp": "__comp---site-src-pages-auth-signup-tsx-48-e-c8c",
+    "__context": {
+      "plugin": "plugin---auth-signina-74-7af"
+    },
+    "config": "config---auth-signin-5-e-9-1f6"
+  },
   "/blog-b2f": {
     "__comp": "__comp---theme-blog-list-pagea-6-a-7ba",
     "__context": {
@@ -245,14 +259,14 @@
   "/book-73b": {
     "__comp": "__comp---site-src-pages-book-tsx-667-924",
     "__context": {
-      "plugin": "plugin---booka-74-d26"
+      "plugin": "plugin---auth-signina-74-7af"
     },
-    "config": "config---book-5-e-9-879"
+    "config": "config---auth-signin-5-e-9-1f6"
   },
   "/markdown-page-3d7": {
     "__comp": "__comp---theme-mdx-page-1-f-3-b90",
     "__context": {
-      "plugin": "plugin---booka-74-d26"
+      "plugin": "plugin---auth-signina-74-7af"
     },
     "content": "content---markdown-page-393-028"
   },
@@ -424,8 +438,8 @@
   "/-e5f": {
     "__comp": "__comp---site-src-pages-index-tsx-1-df-d3e",
     "__context": {
-      "plugin": "plugin---booka-74-d26"
+      "plugin": "plugin---auth-signina-74-7af"
     },
-    "config": "config---book-5-e-9-879"
+    "config": "config---auth-signin-5-e-9-1f6"
   }
 }

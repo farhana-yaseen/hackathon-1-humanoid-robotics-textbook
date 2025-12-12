@@ -1,18 +1,16 @@
 import google.generativeai as genai
 import os
 
-
+# Configure Google Generative AI
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-
 genai.configure(api_key=GEMINI_API_KEY)
 
 # Models
 EMBEDDING_MODEL = "models/text-embedding-004"
-model = genai.GenerativeModel("gemini-2.5-flash")
 
 
 def embed_text(text: str):
-    """Generate embeddings using Gemini."""
+    """Generate embeddings using Google's embedding model."""
     result = genai.embed_content(
         model=EMBEDDING_MODEL,
         content=text

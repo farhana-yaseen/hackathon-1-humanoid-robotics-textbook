@@ -1,7 +1,7 @@
 {
   "id": "intro",
   "title": "Humanoid Robotics Textbook Introduction",
-  "description": "Welcome to the Humanoid Robotics Textbook! This book aims to bridge the gap between digital AI and physical robot control, focusing on embodied intelligence and practical applications.",
+  "description": "<PersonalizeContent chapterTitle=\"Introduction\" chapterContent=\"# Humanoid Robotics Textbook Introduction",
   "source": "@site/docs/intro.md",
   "sourceDirName": ".",
   "slug": "/intro",

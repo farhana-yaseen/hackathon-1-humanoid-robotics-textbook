@@ -1,7 +1,7 @@
 {
   "id": "module1/module1-personalized-example",
   "title": "Module 1: Personalized Example",
-  "description": "This chapter demonstrates personalized content based on your background.",
+  "description": "<PersonalizeContent chapterTitle=\"Module 1 Personalized Example",
   "source": "@site/docs/module1/module1-personalized-example.mdx",
   "sourceDirName": "module1",
   "slug": "/module1/module1-personalized-example",

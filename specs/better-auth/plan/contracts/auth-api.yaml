@@ -1,0 +1,396 @@
+openapi: 3.0.0
+info:
+  title: Better-Auth API
+  description: API for Better-Auth authentication and user profile management
+  version: 1.0.0
+servers:
+  - url: http://localhost:8000/api
+    description: Development server
+  - url: https://api.example.com
+    description: Production server
+
+paths:
+  /auth/signup:
+    post:
+      summary: Register a new user
+      description: Creates a new user account with Better-Auth and returns session token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+                - name
+              properties:
+                email:
+                  type: string
+                  format: email
+                  description: User's email address
+                password:
+                  type: string
+                  format: password
+                  description: User's password (min 8 characters)
+                name:
+                  type: string
+                  description: User's display name
+      responses:
+        '200':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "User registered successfully with background information"
+                  user_id:
+                    type: string
+                    example: "user_123456"
+                  email:
+                    type: string
+                    format: email
+                    example: "user@example.com"
+                  access_token:
+                    type: string
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  token_type:
+                    type: string
+                    example: "bearer"
+        '400':
+          description: Bad request - invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                    example: "User already exists"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                    example: "Internal server error"
+
+  /auth/signin:
+    post:
+      summary: Authenticate a user
+      description: Authenticates user credentials and returns session token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                  description: User's email address
+                password:
+                  type: string
+                  format: password
+                  description: User's password
+      responses:
+        '200':
+          description: Authentication successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  token_type:
+                    type: string
+                    example: "bearer"
+                  user_id:
+                    type: string
+                    example: "user_123456"
+                  name:
+                    type: string
+                    example: "John Doe"
+                  email:
+                    type: string
+                    format: email
+                    example: "user@example.com"
+        '401':
+          description: Unauthorized - invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                    example: "Incorrect email or password"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                    example: "Internal server error"
+
+  /auth/verify-session:
+    post:
+      summary: Verify session token
+      description: Public endpoint to verify Better-Auth session token, returns basic validity info
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - token
+              properties:
+                token:
+                  type: string
+                  description: Session token to verify
+      responses:
+        '200':
+          description: Session is valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  valid:
+                    type: boolean
+                    example: true
+                  user_id:
+                    type: string
+                    example: "user_123456"
+                  email:
+                    type: string
+                    format: email
+                    example: "user@example.com"
+        '401':
+          description: Session is invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  valid:
+                    type: boolean
+                    example: false
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                    example: "Internal server error"
+
+  /auth/create-profile:
+    post:
+      summary: Create user profile
+      description: Creates or updates user profile with onboarding information
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - user_id
+              properties:
+                user_id:
+                  type: string
+                  description: Better-Auth user ID
+                software_background:
+                  type: string
+                  description: User's software background
+                hardware_background:
+                  type: string
+                  description: User's hardware background
+                robotics_experience:
+                  type: string
+                  description: User's robotics experience
+                programming_languages:
+                  type: array
+                  items:
+                    type: string
+                  description: Programming languages user knows
+                hardware_platforms:
+                  type: array
+                  items:
+                    type: string
+                  description: Hardware platforms user has experience with
+                years_of_experience:
+                  type: integer
+                  description: Years of experience (default 0)
+                primary_interest:
+                  type: string
+                  description: Primary interest in robotics
+                education_level:
+                  type: string
+                  description: Education level
+      responses:
+        '200':
+          description: Profile created/updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Profile updated successfully"
+        '400':
+          description: Bad request - invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                    example: "user_id is required"
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                    example: "User not found"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                    example: "Internal server error"
+
+  /auth/sync-vector:
+    post:
+      summary: Sync user profile to vector database
+      description: Initiates async vector synchronization for user profile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - user_id
+              properties:
+                user_id:
+                  type: string
+                  description: Better-Auth user ID
+      responses:
+        '200':
+          description: Vector sync initiated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Vector sync initiated successfully"
+                  status:
+                    type: string
+                    enum: [success, pending, error]
+                    example: "success"
+        '400':
+          description: Bad request - invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                    example: "user_id is required"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                    example: "Internal server error"
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: JWT token for authenticated endpoints
+  schemas:
+    UserProfile:
+      type: object
+      properties:
+        user_id:
+          type: string
+          description: Better-Auth user ID
+        software_background:
+          type: string
+          description: User's software background
+        hardware_background:
+          type: string
+          description: User's hardware background
+        robotics_experience:
+          type: string
+          description: User's robotics experience
+        programming_languages:
+          type: array
+          items:
+            type: string
+          description: Programming languages user knows
+        hardware_platforms:
+          type: array
+          items:
+            type: string
+          description: Hardware platforms user has experience with
+        years_of_experience:
+          type: integer
+          description: Years of experience
+        primary_interest:
+          type: string
+          description: Primary interest in robotics
+        education_level:
+          type: string
+          enum: [high-school, undergraduate, graduate, postgraduate, professional]
+          description: Education level
+        created_at:
+          type: string
+          format: date-time
+          description: Profile creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Profile update timestamp
+
+security:
+  - BearerAuth: []

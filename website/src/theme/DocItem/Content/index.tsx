@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { JSX } from 'react';
 import Content from '@theme-original/DocItem/Content';
 import ChapterControls from '@site/src/components/ChapterControls';
 

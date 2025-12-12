@@ -1,11 +1,25 @@
-from google import generativeai as genai
+import google.generativeai as genai
 import os
+from typing import Generator
 
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+# Configure Google Generative AI
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+genai.configure(api_key=GEMINI_API_KEY)
 
 MODEL = "gemini-2.5-flash"
 
-def stream_message(message: str, context: str = ""):
+def create_chat_session(user_id: str):
+    """
+    Create or get a chat session for the user.
+    In a real implementation, this would manage session state.
+    For now, we just return the user_id as the session identifier.
+    """
+    return user_id
+
+def stream_message(session_id: str = None, message: str = "", context: str = ""):
+    """
+    Stream a message response using Gemini.
+    """
     prompt = f"""
 The user selected the following text:
 
@@ -16,15 +30,22 @@ They asked the following question:
 {message}
 
 Give a helpful, clear answer based ONLY on the selected text.
+If the answer is not contained in the provided text,
+say: "I cannot answer that based on the provided text."
 """
 
-    # Start streaming
-    response = genai.GenerativeModel(MODEL).generate_content(
-        prompt,
-        stream=True
-    )
+    try:
+        model = genai.GenerativeModel(MODEL)
 
-    # Yield streamed chunks
-    for chunk in response:
-        if chunk.text:
-            yield chunk.text
+        # Generate content with streaming
+        response = model.generate_content(
+            prompt,
+            stream=True
+        )
+
+        # Yield streamed chunks
+        for chunk in response:
+            if chunk.text:
+                yield chunk.text
+    except Exception as e:
+        yield f"Error: {str(e)}"

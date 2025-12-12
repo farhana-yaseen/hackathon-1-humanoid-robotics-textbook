@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(git fetch:*)",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "Bash(npm run build)",
+      "Bash(npm start)"
     ],
     "deny": [],
     "ask": []

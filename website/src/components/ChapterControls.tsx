@@ -1,3 +1,9 @@
+
+
+
+
+
+
 import React from 'react';
 
 interface ChapterControlsProps {
