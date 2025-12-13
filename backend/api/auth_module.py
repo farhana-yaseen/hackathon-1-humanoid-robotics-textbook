@@ -6,7 +6,7 @@ that can be easily integrated into the backend system. It handles user registrat
 authentication, and background management with proper security practices.
 """
 
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException, Depends, Header
 from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
 import hashlib
@@ -447,15 +447,15 @@ async def get_user_background(
 
 @router.get("/me")
 async def get_current_user(
-    token: str,
-    auth_service: AuthService = Depends(get_auth_service)
+    auth_service: AuthService = Depends(get_auth_service),
+    authorization: str = Header(None, alias="Authorization")
 ):
     """
     Retrieve current user's information based on their token.
 
     Args:
-        token: Bearer token for authentication
         auth_service: Auth service instance (injected)
+        authorization: Authorization header containing Bearer token
 
     Returns:
         Dictionary containing user information
@@ -466,6 +466,10 @@ async def get_current_user(
         headers={"WWW-Authenticate": "Bearer"},
     )
 
+    if authorization is None or not authorization.startswith("Bearer "):
+        raise credentials_exception
+
+    token = authorization[7:]  # Remove "Bearer " prefix
     token_data = auth_service.decode_token(token)
     if token_data is None:
         raise credentials_exception

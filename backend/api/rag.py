@@ -26,14 +26,22 @@ async def rag_chat_stream(user_id: str, question: str):
     session = create_chat_session(user_id)
 
     # 4 Generator function to yield SSE data
-    async def event_generator():
+    def event_generator():
         answer_chunks = []
         for chunk in stream_message(session_id=session, message=question, context=combined_context):
             answer_chunks.append(chunk)
             yield f"data: {chunk}\n\n"
 
-        # Save full answer to Neon DB
+        # Save full answer to Neon DB - run this in a background task
         full_answer = "".join(answer_chunks)
-        await save_query(question, full_answer)
+
+        # Create a thread to run the async save_query function
+        import threading
+        def save_async():
+            import asyncio
+            asyncio.run(save_query(question, full_answer))
+
+        thread = threading.Thread(target=save_async)
+        thread.start()
 
     return StreamingResponse(event_generator(), media_type="text/event-stream")
