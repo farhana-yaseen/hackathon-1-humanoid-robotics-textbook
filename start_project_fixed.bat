@@ -15,23 +15,23 @@ REM Wait a moment for the auth service to start
 timeout /t 3 /nobreak >nul
 
 REM Start the main backend in the background
-echo Starting backend on port 3001...
+echo Starting backend on port 8000...
 cd /d "D:\hackthon\hackathon1\humanoid-robotics-textbook\backend"
-start /min cmd /c "uvicorn main:app --reload --port 3001"
+start /min cmd /c "uvicorn main:app --reload --port 8000"
 
 REM Wait a moment for the backend to start
 timeout /t 5 /nobreak >nul
 
 REM Start the Docusaurus website in the background
-echo Starting website on port 3003 (auto-selected if 3000 is busy)...
+echo Starting website on port 3000...
 cd /d "D:\hackthon\hackathon1\humanoid-robotics-textbook\website"
-start /min cmd /c "npx docusaurus start --port 3003"
+start /min cmd /c "npx docusaurus start --port 3000"
 
 echo.
 echo All services started!
 echo.
-echo - Website: http://localhost:3003 (or the port shown after "npx docusaurus start")
-echo - Backend: http://localhost:3001 (with API docs at http://localhost:3001/docs)
+echo - Website: http://localhost:3000 (or the port shown after "npx docusaurus start")
+echo - Backend: http://localhost:8000 (with API docs at http://localhost:8000/docs)
 echo - Auth Service: http://localhost:3002
 echo.
 echo Please check the individual console windows for any errors.

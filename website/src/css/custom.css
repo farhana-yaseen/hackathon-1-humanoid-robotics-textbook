@@ -4,7 +4,6 @@
  * work well for content-centric websites.
  */
 
-@import './tailwind.css';
 
 /* You can override the default Infima variables here. */
 :root {
@@ -30,3 +29,19 @@
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+/* Chatbot positioning in bottom-right corner */
+.chatbot-button {
+  position: fixed !important;
+  bottom: 20px !important;
+  right: 20px !important;
+  z-index: 9999 !important;
+}
+
+.chatbot-container {
+  position: fixed !important;
+  bottom: 80px !important;
+  right: 20px !important;
+  z-index: 9998 !important;
+}
+

@@ -1,85 +1,245 @@
-<!-- SYNC IMPACT REPORT
-Version change: 1.0.0 → 1.1.0
-Modified principles: None (added new principles)
-Added sections: Authentication Security, Personalization & Vector Storage
-Removed sections: None
+<!--
+SYNC IMPACT REPORT
+Version change: 1.1.0 → 1.3.0
+Modified principles: RAG Stack, Embeddings, LLM Provider
+Added sections: Gemini LLM Policy
+Removed sections: OpenAI-specific references
 Templates requiring updates:
-  - .specify/templates/plan-template.md ✅ updated
-  - .specify/templates/spec-template.md ✅ updated
-  - .specify/templates/tasks-template.md ✅ updated
-  - .specify/templates/commands/sp.constitution.md ✅ updated
-Follow-up TODOs: None
+  - .specify/templates/plan-template.md ✅
+  - .specify/templates/spec-template.md ✅
+  - .specify/templates/tasks-template.md ✅
+  - .specify/templates/commands/sp.constitution.md ✅
 -->
-# Humanoid Robotics Textbook Constitution
+
+# Humanoid Robotics Textbook – Hackathon Constitution
+
+## Purpose
+
+This constitution governs the **AI / Spec-Driven creation of a Humanoid Robotics textbook**, authored using **Docusaurus** and deployed on **GitHub Pages**, with an **embedded Retrieval-Augmented Generation (RAG) chatbot**.
+
+The project is developed during a **hackathon**, prioritizing:
+- working functionality
+- clarity of scope
+- extensibility for bonus features
+- correctness without unnecessary complexity
+
+---
 
 ## Core Principles
 
-### I. Non-Breaking Extension Architecture
-All new functionality must be implemented as modular extensions without modifying, breaking, or rewriting existing project features, agents, skills, endpoints, files, schemas, or frontend flows. New components must integrate cleanly without affecting existing functionality. This ensures backward compatibility and allows gradual system evolution.
+### I. Spec-Driven Development (Primary Rule)
 
-### II. CLI Interface
-Every library and service exposes functionality via standardized interfaces; Text-based protocols ensure debuggability: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats for all major operations and system interactions.
+All meaningful work must follow **Spec-Kit Plus** workflow:
 
-### III. Test-First (NON-NEGOTIABLE)
-TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced for all new functionality including authentication, personalization, and vector storage features.
+- Plans may be updated during hackathon time pressure
+- Implementation must follow the **latest approved plan**
+- Any deviation must be documented in the spec or plan
 
-### IV. Integration Testing
-Focus areas requiring integration tests: New authentication contract tests, User profile storage integration, Vector database synchronization, Inter-service communication between auth, database, and vector systems, Shared schemas across auth and personalization services.
+---
 
-### V. Authentication Security & Session Management
-Secure authentication must use industry-standard practices: Better-Auth server SDK for backend, Better-Auth client SDK for frontend, HTTP-only cookies for session tokens, Proper password hashing with PBKDF2, JWT token validation, Secure session validation, and protection against common security vulnerabilities (CSRF, XSS, etc.).
+### II. Non-Breaking Extension Architecture
 
-### VI. Personalization & Vector Storage
-User personalization must integrate with vector storage for personalized content delivery: Embed user attributes using ChatKit Embeddings API, Store vectors in Qdrant under dedicated collections, Maintain user profile data in Neon Postgres, Ensure vector synchronization with user profile updates, Support similarity search for personalized textbook content.
+Existing functionality **must never be broken**.
 
-## Additional Constraints
+New features (auth, personalization, translation, chatbot upgrades) must be:
+- modular
+- optional
+- additive
 
-### Technology Stack Requirements
-- Authentication: Better-Auth framework with server-side SDK
-- Database: Neon Serverless Postgres for user profiles
-- Vector Database: Qdrant Cloud for user attribute embeddings
-- Backend: FastAPI with proper dependency injection
-- Frontend: React/Docusaurus with secure client-side auth integration
-- Embeddings: Google Gemini for text embedding generation
+No rewrites of:
+- existing book content
+- Docusaurus build system
+- RAG ingestion pipeline
 
-### Security Standards
-- All authentication endpoints must use HTTPS in production
-- Passwords must be hashed using PBKDF2 with salt
-- JWT tokens must have appropriate expiration times
-- Session tokens must be stored in HTTP-only cookies
-- All database queries must use parameterized statements
-- Input validation must be performed on all user inputs
-- Rate limiting should be implemented for auth endpoints
+---
 
-### Performance Standards
-- Authentication operations should complete within 2 seconds
-- User profile retrieval should be cached appropriately
-- Vector search operations should return results within 1 second
-- Session validation should have minimal overhead
-- Database queries should use appropriate indexing
+### III. Pragmatic Testing (Hackathon-Aware)
 
-## Development Workflow
+Testing is required, but **practical**:
 
-### Code Review Requirements
-- All authentication-related code must be reviewed by security-conscious team members
-- Database schema changes must be reviewed for migration safety
-- Vector storage changes must consider performance implications
-- New endpoints must include proper error handling and validation
+- Core systems (RAG, auth, personalization logic) must be tested
+- UI-only changes may defer tests
+- Tests may be written **after implementation**, but before final submission
 
-### Testing Gates
-- Authentication functionality must have 100% test coverage
-- User profile operations must include both positive and negative test cases
-- Vector synchronization must be tested for data consistency
-- Session management must include tests for token expiration and renewal
+Goal: **confidence, not perfection**
 
-### Deployment Approval Process
-- Authentication changes require security review
-- Database migrations must be tested on staging
-- Vector database changes must not impact existing functionality
-- All auth endpoints must pass security scanning
+---
+
+### IV. CLI-First & Observable Systems
+
+All backend systems must be:
+- runnable via CLI
+- debuggable without UI
+- observable via logs
+
+Guidelines:
+- stdin / args → input
+- stdout → success output
+- stderr → errors
+- JSON preferred, human-readable allowed
+
+---
+
+## Hackathon Scope
+
+### In-Scope (Base Points)
+
+- AI-assisted textbook creation using Docusaurus
+- vercel deployment
+- Embedded RAG chatbot
+- Question answering over:
+  - full book
+  - user-selected text only
+
+
+## RAG Chatbot Architecture
+Selection-Based Contextual RAG (NON-NEGOTIABLE)
+
+The system must support selection-based contextual question answering.
+When a user selects any portion of textbook content, the selected text must be automatically injected into the RAG chatbot context.
+
+Rules:
+- The chatbot must clearly distinguish between:
+  - Global book knowledge
+  - User-selected local context
+- When selection exists, answers must be constrained strictly to the selected text unless the user explicitly opts out.
+- The UI must provide clear visual feedback that the chatbot is operating in "Selection Context Mode".
+- Selected text must not be permanently stored unless explicitly approved by the user.
+- This behavior must work consistently across all chapters and translations.
+
+### Backend
+- **FastAPI**
+- Modular services for ingestion, retrieval, and generation
+
+### Vector Storage
+- **Qdrant Cloud (Free Tier)**
+- Separate collections for:
+  - book content
+  - user personalization signals (optional)
+
+### Database
+- **Neon Serverless Postgres**
+- Stores:
+  - user profiles
+  - auth metadata
+  - personalization preferences
+
+---
+
+## LLM & Embeddings Policy (IMPORTANT)
+
+### Primary LLM Provider
+- **Google Gemini API**
+- Gemini models used for:
+  - answer generation
+  - summarization
+  - translation
+  - personalization logic
+
+❌ **OpenAI APIs must NOT be required**
+
+---
+
+### Embeddings
+- **Gemini Embeddings API**
+- Used for:
+  - book content vectors
+  - optional user profile vectors
+
+Embedding logic must be:
+- replaceable
+- provider-agnostic at interface level
+
+---
+
+## Authentication (Bonus Feature)
+
+### Auth System
+- **Better-Auth**
+- Entire auth system must be **optional**
+
+### Signup Requirements
+During signup, ask the user:
+- software background
+- hardware / robotics experience
+
+Collected data may be used for personalization.
+
+---
+
+## Personalization (Bonus Feature)
+
+- Available only for logged-in users
+- Triggered via a **button at the start of each chapter**
+- May include:
+  - simplified explanations
+  - advanced explanations
+  - filtered sections
+
+Personalization must:
+- never modify original content
+- be reversible
+- be safe to disable globally
+
+---
+
+## Urdu Translation (Bonus Feature)
+
+- Available to logged-in users
+- Triggered via a **chapter-level button**
+- Translation performed using **Gemini**
+- English remains the source of truth
+
+Caching is allowed but not required.
+
+---
+
+## Claude Code Intelligence Reuse (Bonus Feature)
+
+Reusable intelligence is encouraged via:
+- Claude Code Subagents
+- Agent Skills
+
+Examples:
+- RAG query refinement agent
+- Chapter summarization agent
+- Translation agent
+- Personalization agent
+
+Agents must:
+- be reusable
+- be documented
+- avoid chapter-specific hard-coding
+
+---
+
+## Security & Secrets
+
+- No secrets committed to git
+- `.env` files must be gitignored
+- API keys loaded via environment variables
+- HTTPS required in production
+
+---
+
+## Performance Expectations
+
+- RAG responses ≤ 3 seconds
+- Vector search ≤ 1 second
+- Chatbot must not block page rendering
+- vercel must remain stable
+
+---
 
 ## Governance
 
-All PRs/reviews must verify compliance with authentication security standards, personalization data handling, and vector storage best practices; Complexity must be justified with clear performance and security implications; Use [GUIDANCE_FILE] for runtime development guidance; Amendments require documentation of security impact assessment.
+- Working systems > theoretical perfection
+- Base requirements must be completed before bonus features
+- Any shortcut must be documented
+- Architecture must remain extensible post-hackathon
 
-**Version**: 1.1.0 | **Ratified**: 2025-06-13 | **Last Amended**: 2025-12-12
+---
+
+**Version**: 1.3.0
+**Ratified**: 2025-12-13
+**Context**: Hackathon / Prototype Phase

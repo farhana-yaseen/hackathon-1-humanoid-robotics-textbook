@@ -59,7 +59,7 @@ export default {
             ],
             "xslt": true
           },
-          "editUrl": "https://github.com/your-github-username/humanoid-robotics-textbook/tree/main/website/",
+          "editUrl": "https://github.com/farhana-yaseen/humanoid-robotics-textbook/tree/main/website/",
           "onInlineTags": "warn",
           "onInlineAuthors": "warn",
           "onUntruncatedBlogPosts": "warn"
@@ -70,6 +70,9 @@ export default {
       }
     ]
   ],
+  "customFields": {
+    "betterAuthUrl": "http://localhost:3002"
+  },
   "themeConfig": {
     "image": "img/docusaurus-social-card.jpg",
     "colorMode": {
@@ -376,7 +379,6 @@ export default {
   "staticDirectories": [
     "static"
   ],
-  "customFields": {},
   "plugins": [],
   "themes": [],
   "scripts": [],

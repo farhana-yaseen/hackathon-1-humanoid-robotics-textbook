@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useSession, signIn, signOut, signUp } from '../auth/betterAuthClient';
-import OnboardingForm from './OnboardingForm';
+import { useAuth } from '../contexts/AuthContext';
+import { signIn, signOut, signUp } from '../auth/betterAuthClient';
 
 const AuthButton: React.FC = () => {
-  const { data: session, status } = useSession();
+  const { user, isAuthenticated, loading, signOut: contextSignOut } = useAuth();
   const [showForm, setShowForm] = useState(false);
-  const [showOnboarding, setShowOnboarding] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -77,9 +76,8 @@ const AuthButton: React.FC = () => {
         throw new Error(response.error.message);
       }
 
-      // After successful signup, show onboarding form
+      // After successful signup, close the form
       setShowForm(false);
-      setShowOnboarding(true);
     } catch (err: any) {
       console.error('Signup error:', err);
       setError(err.message || 'An error occurred during signup');
@@ -90,15 +88,11 @@ const AuthButton: React.FC = () => {
 
   const handleLogout = async () => {
     try {
-      await signOut();
+      await contextSignOut();
       // Better Auth handles session automatically
     } catch (error) {
       console.error('Signout error:', error);
     }
-  };
-
-  const handleOnboardingComplete = () => {
-    setShowOnboarding(false);
   };
 
   const toggleView = () => {
@@ -111,21 +105,21 @@ const AuthButton: React.FC = () => {
 
   return (
     <div className="relative inline-block" ref={dropdownRef}>
-      {status === 'loading' ? (
+      {loading ? (
         <button className="px-4 py-2 bg-gray-400 text-white rounded-lg font-medium transition-all duration-200 cursor-not-allowed" disabled>
           Loading...
         </button>
-      ) : status === 'authenticated' ? (
+      ) : isAuthenticated ? (
         <div className="relative">
           <button
             className="px-4 py-2 bg-gray-100 text-gray-800 border border-gray-300 rounded-lg font-medium transition-all duration-200 flex items-center gap-2 hover:bg-gray-200"
             onClick={() => setShowForm(!showForm)}
           >
             <span className="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold">
-              {session?.user?.name?.charAt(0).toUpperCase() || session?.user?.email?.charAt(0).toUpperCase() || 'U'}
+              {user?.name?.charAt(0).toUpperCase() || user?.email?.charAt(0).toUpperCase() || 'U'}
             </span>
             <span className="hidden max-w-[100px] overflow-hidden text-ellipsis whitespace-nowrap md:inline">
-              {session?.user?.name || session?.user?.email?.split('@')[0]}
+              {user?.name || user?.email?.split('@')[0]}
             </span>
           </button>
 
@@ -133,14 +127,14 @@ const AuthButton: React.FC = () => {
             <div className="absolute top-full right-0 w-72 bg-white border border-gray-200 rounded-lg shadow-lg z-50 mt-1 overflow-hidden">
               <div className="flex items-center p-4 border-b border-gray-200">
                 <div className="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center text-lg font-bold">
-                  {session?.user?.name?.charAt(0).toUpperCase() || session?.user?.email?.charAt(0).toUpperCase() || 'U'}
+                  {user?.name?.charAt(0).toUpperCase() || user?.email?.charAt(0).toUpperCase() || 'U'}
                 </div>
                 <div className="ml-3">
                   <div className="font-semibold text-gray-800">
-                    {session?.user?.name || session?.user?.email?.split('@')[0]}
+                    {user?.name || user?.email?.split('@')[0]}
                   </div>
                   <div className="text-xs text-gray-500">
-                    {session?.user?.email}
+                    {user?.email}
                   </div>
                 </div>
               </div>
@@ -237,17 +231,6 @@ const AuthButton: React.FC = () => {
           )}
         </div>
       )}
-    {/* Onboarding form overlay */}
-    {showOnboarding && session?.user?.id && (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-        <div className="w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-          <OnboardingForm
-            userId={session.user.id}
-            onComplete={handleOnboardingComplete}
-          />
-        </div>
-      </div>
-    )}
     </div>
   );
 };

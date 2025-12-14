@@ -14,6 +14,7 @@ from .user_profile_model import UserProfile, UserProfileUpdate
 from .rate_limiter import rate_limiter
 from .session_manager import session_manager
 from .logging_config import auth_logger
+from .auth_service_client import auth_service_client
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -103,12 +104,33 @@ async def signup(
     logger.info(f"Processing signup request for: {user_data.email} from IP: {client_ip}")
 
     try:
-        # In a real implementation, this would call the Better-Auth API to create the user
-        # For now, we'll simulate the user creation and return a success response
-        # The actual Better-Auth service should handle user creation
+        # Prepare background data for the auth service
+        background_data = {
+            "softwareExperience": user_data.software_background,
+            "hardwareExperience": user_data.hardware_background,
+            "roboticsExperience": user_data.robotics_experience,
+            "programmingLanguages": user_data.programming_languages,
+            "hardwarePlatforms": user_data.hardware_platforms,
+            "yearsOfExperience": user_data.years_of_experience,
+            "primaryInterest": user_data.primary_interest,
+            "educationLevel": user_data.education_level
+        }
 
-        # Generate a simple user ID based on email hash (in real implementation, get from Better-Auth)
-        user_id = f"user_{abs(hash(user_data.email)) % 1000000}"  # Simple hash for demo
+        # Call the Better Auth service to create the user
+        auth_response = await auth_service_client.signup(
+            email=user_data.email,
+            password=user_data.password,
+            name=user_data.name,
+            background_data=background_data
+        )
+
+        if not auth_response.success:
+            raise HTTPException(
+                status_code=400,
+                detail=auth_response.error or "Signup failed"
+            )
+
+        user_id = auth_response.user_id
 
         # Log the signup event
         auth_logger.log_auth_event(
@@ -117,7 +139,7 @@ async def signup(
             details={"email": user_data.email, "ip": client_ip}
         )
 
-        # Create user profile with onboarding data if provided
+        # Create user profile with onboarding data if provided in our local database
         if (user_data.software_background or user_data.hardware_background or
             user_data.robotics_experience or user_data.programming_languages or
             user_data.hardware_platforms or user_data.primary_interest):
@@ -156,7 +178,7 @@ async def signup(
                     logger.warning(f"Failed to sync user profile to vector DB for user: {user_id}")
 
         return {
-            "message": "User registered successfully with background information",
+            "message": auth_response.message,
             "user_id": user_id,
             "email": user_data.email
         }
@@ -203,34 +225,54 @@ async def signin(
 
     logger.info(f"Processing sign in request for: {login_data.email} from IP: {client_ip}")
 
-    # In a real implementation, this would call the Better-Auth API to authenticate the user
-    # For now, we'll simulate the authentication and return a success response
-    # The actual Better-Auth service should handle authentication
+    try:
+        # Call the Better Auth service to authenticate the user
+        auth_response = await auth_service_client.signin(
+            email=login_data.email,
+            password=login_data.password
+        )
 
-    # Generate a simple user ID based on email hash (in real implementation, get from Better-Auth)
-    user_id = f"user_{abs(hash(login_data.email)) % 1000000}"  # Simple hash for demo
+        if not auth_response.success:
+            raise HTTPException(
+                status_code=401,
+                detail=auth_response.error or "Invalid credentials"
+            )
 
-    # Log the signin event
-    auth_logger.log_auth_event(
-        event_type="signin",
-        user_id=user_id,
-        details={"email": login_data.email, "ip": client_ip}
-    )
+        user_id = auth_response.user_id
 
-    # Create tokens
-    access_token_data = {"user_id": user_id, "email": login_data.email}
-    access_token = session_manager.create_access_token(access_token_data)
-    refresh_token = session_manager.create_refresh_token(access_token_data)
+        # Log the signin event
+        auth_logger.log_auth_event(
+            event_type="signin",
+            user_id=user_id,
+            details={"email": login_data.email, "ip": client_ip}
+        )
 
-    # Set HTTP-only cookies
-    session_manager.set_auth_cookies(response, access_token, refresh_token)
+        # Create tokens
+        access_token_data = {"user_id": user_id, "email": login_data.email}
+        access_token = session_manager.create_access_token(access_token_data)
+        refresh_token = session_manager.create_refresh_token(access_token_data)
 
-    return {
-        "message": "Sign in successful",
-        "user_id": user_id,
-        "name": login_data.email.split('@')[0],  # Use part of email as name
-        "email": login_data.email
-    }
+        # Set HTTP-only cookies
+        session_manager.set_auth_cookies(response, access_token, refresh_token)
+
+        return {
+            "message": auth_response.message,
+            "user_id": user_id,
+            "name": login_data.email.split('@')[0],  # Use part of email as name
+            "email": login_data.email
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error during signin: {str(e)}")
+        # Log the error
+        auth_logger.log_auth_error(
+            event_type="signin",
+            user_id="unknown",
+            error=str(e),
+            details={"email": login_data.email, "ip": client_ip}
+        )
+        raise HTTPException(status_code=500, detail="Internal server error")
 
 
 @router.post("/verify-session")
@@ -268,12 +310,14 @@ async def verify_session(
 
 @router.post("/signout")
 async def signout(
+    request: Request,
     response: Response
 ):
     """
     Sign out the user by clearing auth cookies.
 
     Args:
+        request: FastAPI request object to get client IP
         response: FastAPI response object to clear cookies
 
     Returns:
@@ -282,11 +326,14 @@ async def signout(
     # Clear auth cookies
     session_manager.clear_auth_cookies(response)
 
+    # Get client IP for logging
+    client_ip = request.client.host if request.client else "unknown"
+
     # Log the signout event
     auth_logger.log_auth_event(
         event_type="signout",
         user_id="unknown",  # In a real implementation, we'd extract user ID from the token
-        details={"ip": request.client.host if request.client else "unknown"}
+        details={"ip": client_ip}
     )
 
     return {
@@ -314,6 +361,27 @@ async def create_profile(
     logger.info(f"Creating profile for user: {request_data.user_id}")
 
     try:
+        # First, update the user profile in the Better Auth service
+        background_data = {
+            "softwareExperience": request_data.software_background,
+            "hardwareExperience": request_data.hardware_background,
+            "roboticsExperience": request_data.robotics_experience,
+            "programmingLanguages": request_data.programming_languages,
+            "hardwarePlatforms": request_data.hardware_platforms,
+            "yearsOfExperience": request_data.years_of_experience,
+            "primaryInterest": request_data.primary_interest,
+            "educationLevel": request_data.education_level
+        }
+
+        auth_response = await auth_service_client.update_user_background(
+            user_id=request_data.user_id,
+            background_data=background_data
+        )
+
+        if not auth_response.success:
+            logger.warning(f"Failed to update background in auth service: {auth_response.error}")
+
+        # Create/update the user profile in our local database
         profile_data = UserProfileCreate(
             user_id=request_data.user_id,
             software_background=request_data.software_background,

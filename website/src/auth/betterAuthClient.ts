@@ -15,9 +15,9 @@ export interface UserBackground {
 
 // Create the auth client
 export const authClient = createAuthClient({
-  baseURL: typeof window !== 'undefined'
-    ? (window as any).ENV?.AUTH_API_URL || "http://localhost:3002"
-    : process.env.AUTH_API_URL || "http://localhost:3002",
+  baseURL:
+    (typeof window !== 'undefined' && (window as any).betterAuthUrl) ||
+    "http://localhost:3002", // Use fallback for development
   fetchConfig: betterFetch,
 });
 

@@ -28,12 +28,15 @@ from api.translate import router as translate_router
 from api.rag_module import router as rag_module_router
 from api.auth_module import router as auth_module_router
 
+# Import Better Auth components
+from api.auth_better.better_auth_router import router as better_auth_router
+
 app = FastAPI()
 
 # Enable CORS for frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:4000", "http://localhost:8000"],
+    allow_origins="http://localhost:3000",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -49,6 +52,9 @@ app.include_router(translate_router, prefix="/api")
 # Include new modular routers
 app.include_router(rag_module_router, prefix="/api")
 app.include_router(auth_module_router, prefix="/api")
+
+# Include Better Auth router
+app.include_router(better_auth_router, prefix="/api")
 
 # Optional root endpoint
 @app.get("/")

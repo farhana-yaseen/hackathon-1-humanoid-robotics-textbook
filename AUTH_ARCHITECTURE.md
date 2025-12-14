@@ -57,7 +57,7 @@ The humanoid robotics textbook project implements a comprehensive authentication
 ### 3. Backend Service (Python FastAPI)
 
 **Location**: `/backend/`
-**Port**: 3001
+**Port**: 8000
 
 **Integration**:
 - RAG chatbot functionality
@@ -122,7 +122,7 @@ PORT=3002
 ### Frontend (.env)
 ```bash
 AUTH_API_URL=http://localhost:3002/api
-BACKEND_API_URL=http://localhost:3001/api
+BACKEND_API_URL=http://localhost:8000/api
 NEXT_PUBLIC_BETTER_AUTH_URL=http://localhost:3002
 ```
 
@@ -157,7 +157,7 @@ NEXT_PUBLIC_BETTER_AUTH_URL=http://localhost:3002
 
    # Start backend
    cd backend
-   uvicorn main:app --reload --port 3001
+   uvicorn main:app --reload --port 8000
 
    # Start website
    cd website

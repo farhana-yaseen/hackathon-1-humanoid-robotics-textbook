@@ -1,6 +1,11 @@
 import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
+import * as dotenv from 'dotenv';
+
+// Load environment variables from .env file
+dotenv.config();
+
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
@@ -54,7 +59,7 @@ const config: Config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/your-github-username/humanoid-robotics-textbook/tree/main/website/',
+            'https://github.com/farhana-yaseen/humanoid-robotics-textbook/tree/main/website/',
           // Useful options to enforce blogging best practices
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
@@ -67,7 +72,10 @@ const config: Config = {
     ],
   ],
 
-  // Note: Environment variables are handled in components to avoid SSR issues
+  // Pass environment variables to the client via custom fields
+  customFields: {
+    betterAuthUrl: process.env.NEXT_PUBLIC_BETTER_AUTH_URL || "http://localhost:3002",
+  },
   themeConfig: {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',

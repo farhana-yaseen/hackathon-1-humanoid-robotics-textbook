@@ -34,6 +34,20 @@ export default function AuthForm({ onSuccess, onError }: AuthFormProps): JSX.Ele
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Client-side validation for required background fields
+    if (!softwareBackground.trim()) {
+      setErrorMessage('Software background is required');
+      onError('Software background is required');
+      return;
+    }
+
+    if (!hardwareBackground.trim()) {
+      setErrorMessage('Hardware background is required');
+      onError('Hardware background is required');
+      return;
+    }
+
     setLoading(true);
     setErrorMessage(''); // Clear previous errors
     try {

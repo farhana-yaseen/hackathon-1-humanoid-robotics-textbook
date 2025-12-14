@@ -1,0 +1,196 @@
+openapi: 3.0.0
+info:
+  title: Chapter and Personalization API for Humanoid Robotics Textbook
+  description: API for chapter content and personalization features
+  version: 1.0.0
+servers:
+  - url: https://api.humanoid-textbook.com
+    description: Production server
+  - url: https://staging-api.humanoid-textbook.com
+    description: Staging server
+
+paths:
+  /chapters:
+    get:
+      summary: List all chapters
+      description: Retrieves a list of all textbook chapters
+      responses:
+        '200':
+          description: Chapters retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  chapters:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Chapter'
+
+  /chapters/{chapterId}:
+    get:
+      summary: Get chapter content
+      description: Retrieves a specific chapter's content
+      parameters:
+        - name: chapterId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Unique identifier of the chapter
+        - name: personalized
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+          description: Whether to return personalized content
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Chapter content retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  chapter:
+                    $ref: '#/components/schemas/Chapter'
+                  content:
+                    type: string
+                    description: Chapter content in Markdown format
+        '404':
+          description: Chapter not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /chapters/{chapterId}/personalize:
+    post:
+      summary: Generate personalized content
+      description: Generates personalized content for a chapter based on user profile
+      parameters:
+        - name: chapterId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Unique identifier of the chapter
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Personalized content generated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  content:
+                    type: string
+                    description: Personalized chapter content in Markdown format
+                  rules_applied:
+                    type: array
+                    items:
+                      type: string
+                    description: Personalization rules applied
+        '400':
+          description: Bad request - personalization not possible
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /chapters/{chapterId}/translate:
+    post:
+      summary: Translate chapter to Urdu
+      description: Translates a chapter to Urdu
+      parameters:
+        - name: chapterId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Unique identifier of the chapter
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Chapter translated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  urdu_content:
+                    type: string
+                    description: Urdu translation of chapter content
+                  quality_score:
+                    type: number
+                    format: float
+                    description: Quality score of translation (0-1)
+        '400':
+          description: Bad request - translation not possible
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    Chapter:
+      type: object
+      properties:
+        chapter_id:
+          type: string
+          format: uuid
+          description: Unique chapter identifier
+        title:
+          type: string
+          description: Chapter title
+        slug:
+          type: string
+          description: URL-friendly identifier
+        module:
+          type: string
+          description: Module category (ROS 2, Digital Twin, etc.)
+        word_count:
+          type: integer
+          description: Number of words in chapter
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: string
+          example: "Error message"
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

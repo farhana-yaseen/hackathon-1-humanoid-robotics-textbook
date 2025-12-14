@@ -1,163 +1,184 @@
-# Feature Specification: Humanoid Robotics Textbook with Personalization and Interaction
+# Feature Specification: Physical AI & Humanoid Robotics Textbook Platform
 
 **Feature Branch**: `2-humanoid-textbook`
-**Created**: 2025-12-05
+**Created**: 2025-12-13
 **Status**: Draft
-**Input**: User description: "## Target Audience
+**Input**: User description: " # Specification: Physical AI & Humanoid Robotics Textbook Platform
 
-- Students and practitioners with a software/hardware background in AI, robotics, and embedded systems.
-- Users who will interact with the book online, personalize content, and optionally translate chapters into Urdu.
+## Project Title
+Physical AI & Humanoid Robotics: An AI/Spec-Driven Interactive Textbook
 
-## Focus and Theme
+## Project Type
+AI/Spec-Driven Book Creation + Integrated RAG Chatbot
 
-- AI systems in the physical world, embodied intelligence, humanoid robotics.
-- Bridging the gap between digital AI and physical robot control.
-- Practical application using **ROS 2**, **Gazebo**, **NVIDIA Isaac**, **Unity**, and **GPT/LLM integrations**.
+## Primary Goal
+Create and deploy an interactive, production-quality textbook using Docusaurus and GitHub Pages that teaches Physical AI and Humanoid Robotics, enhanced with an embedded RAG chatbot capable of contextual, personalized, and multilingual (Urdu) assistance.
 
-## Modules / Chapters to Cover
+---
 
-### 1. The Robotic Nervous System (ROS 2)
+## Problem Statement
 
-- Middleware architecture: nodes, topics, services.
-- Python integration via `rclpy`.
-- URDF for humanoid robots.
+Traditional robotics education is fragmented across PDFs, videos, and code repositories, making it difficult for learners to connect theoretical AI concepts with emboeeks 8–10: NVIDIA Isaac platform
+- Weeks 11–12: Humanoid locomotion & manipulation
+- Week 13: Conversational robotics
 
-### 2. The Digital Twin (Gazebo & Unity)
+---
 
-- Physics simulation: gravity, collisions.
-- Environment building in Gazebo.
-- Rendering and human-robot interaction in Unity.
-- Sensor simulation: LiDAR, depth cameras, IMUs.
+## Technical Architecture
 
-### 3. The AI-Robot Brain (NVIDIA Isaac")
+### Frontend
+- Docusaurus
+- React components for:
+  - Chatbot
+  - Selection capture
+  - Personalization
+  - Translation
 
-- Photorealistic simulation and synthetic data.
-- Isaac ROS for perception and navigation.
+### Backend
+- FastAPI
+- Modular services:
+  - RAG service
+  - Auth service
+  - Profile service
 
-- Nav2 path planning and bipedal locomotion.
+### Data Layer
+- Neon Postgres: users, profiles, metadata
+- Qdrant Cloud: embeddings
+- Gemini Embeddings API for vector generation
 
-### 4. Vision-Language-Action (VLA)
-
-- Integrating LLMs for voice-to-action commands.
-
-- Cognitive planning from natural language to ROS actions.
-
-- Capstone: autonomous humanoid performing multi-modal tasks.
-
-## Personalization & Interaction Requirements
-
-- On signup, collect users software and hardware background via **Better Auth**.
-- Logged-in users can:
-  - Personalize chapter content dynamically via a **Personalize Content** button.
-  - Translate chapters to Urdu via a **Translate to Urdu** button.
-
-## Success Criteria
-
-- Each chapter includes accurate AI/robotics content verified against primary sources or peer-reviewed papers.
-- Chapters adapt content dynamically to user background.
-- Translations to Urdu are accurate and preserve technical meaning.
-- Book is fully deployable via Docusaurus to GitHub Pages.
-- Authentication, personalization, and translation features function correctly.
+---
 
 ## Constraints
 
-- **Word count**: 5,000 7,000 words per chapter.
-- **Sources**: Minimum 50% peer-reviewed, total minimum 15 sources per book.
-- **Citation style**: APA.
-- **Plagiarism**: Zero tolerance.
-- **Format**: Markdown source, ready for Docusaurus deployment.
-- **Timeline**: Complete all chapters, features, and deployment within project schedule."
-
-## Clarifications
-
-### Session 2025-12-05
-
--   Q: What are the anticipated magnitudes for the number of users and chapters in the system? → A: Small (dozens of users/chapters)
+- Gemini API must be used (OpenAI APIs are NOT allowed)
+- All features must be modular and non-breaking
+-athon-Ready
+**Authoring Mode:** Spec-Kit Plus + Claude Code"
 
 ## User Scenarios & Testing *(mandatory)*
 
-### User Story 1 - Personalized Content Viewing (Priority: P1)
+### User Story 1 - Interactive RAG Chatbot with Selection Context (Priority: P1)
 
-A logged-in user with a specific software/hardware background wants to view a chapter, and the content dynamically adjusts to their background for better comprehension.
+A learner reading a chapter wants to ask questions about specific content by selecting text and getting contextual answers from the RAG chatbot, which can provide personalized responses based on their background and translate to Urdu when needed.
 
-**Why this priority**: Core value proposition for personalized learning, enhancing user engagement and understanding.
+**Why this priority**: Core value proposition of the textbook - connecting fragmented learning materials with contextual AI assistance that understands both the specific content and user's background.
 
-**Independent Test**: A user can sign up, provide their background, then navigate to any chapter and observe content elements (e.g., examples, explanations) tailored to their profile, without requiring translation features.
+**Independent Test**: A user can select text in a chapter, ask questions about it, and receive accurate answers from the RAG chatbot that are constrained to the selected context, without requiring authentication or translation features.
 
 **Acceptance Scenarios**:
 
-1.  **Given** a user is logged in and has provided their software/hardware background, **When** they navigate to a chapter, **Then** the chapter content dynamically adapts to their specified background.
-2.  **Given** a user has updated their software/hardware background, **When** they revisit a previously viewed chapter, **Then** the chapter content reflects the newly updated background.
+1. **Given** a user is viewing a chapter and has selected text, **When** they ask a question about the selected text through the RAG chatbot, **Then** the chatbot provides answers strictly based on the selected content and clearly indicates it's operating in "Selection Context Mode".
+2. **Given** a user has selected text in a chapter, **When** they ask a question that requires broader context than the selection, **Then** the chatbot informs them that the answer is limited to the selected text and suggests expanding the selection or asking about the broader chapter.
 
 ---
 
-### User Story 2 - Urdu Chapter Translation (Priority: P1)
+### User Story 2 - User Account Creation with Background Collection (Priority: P2)
 
-A logged-in user wants to read a chapter in Urdu to facilitate understanding in their native language.
+A new user wants to sign up for the textbook and provide their software and hardware background to enable personalized content and RAG responses.
 
-**Why this priority**: Addresses a critical accessibility and comprehension need for a specific target audience.
+**Why this priority**: Essential for enabling the personalization feature that tailors both textbook content and chatbot responses to user expertise level.
 
-**Independent Test**: A user can log in, select the "Translate to Urdu" option for a chapter, and verify that the chapter text is accurately translated and preserves technical meaning, independent of personalization.
+**Independent Test**: A new user can successfully create an account using "Better Auth" and input their software and hardware background, which gets stored for use in personalization features.
 
-**Acceptance Scenarios**:\
+**Acceptance Scenarios**:
 
-1.  **Given** a user is logged in, **When** they click the "Translate to Urdu" button on a chapter, **Then** the chapter content is translated into accurate Urdu while preserving technical meaning.
-2.  **Given** a chapter has been translated to Urdu, **When** the user switches back to the original language, **Then** the chapter content reverts to the original language.
+1. **Given** a new user visits the sign-up page, **When** they complete the registration process using "Better Auth" and provide their software/hardware background, **Then** a new user account is created, and their background information is stored for personalization.
+2. **Given** a user attempts to sign up without providing all mandatory background information, **When** they submit the form, **Then** the system provides clear feedback on missing fields and prevents account creation until resolved.
 
 ---
 
-### User Story 3 - User Account Creation with Background Collection (Priority: P2)
+### User Story 3 - Urdu Chapter Translation and Chatbot Responses (Priority: P3)
 
-A new user wants to sign up for the textbook and provide their software and hardware background to enable personalized content.
+A logged-in user wants to read a chapter in Urdu or get chatbot responses in Urdu to facilitate understanding in their native language.
 
-**Why this priority**: Essential for onboarding and enabling the personalization feature, but dependent on the core personalized content viewing.
+**Why this priority**: Critical accessibility feature for reaching broader audiences and improving comprehension for non-English speakers.
 
-**Independent Test**: A new user can successfully create an account using "Better Auth" and input their software and hardware background, independent of chapter content.
+**Independent Test**: A user can log in, select the "Translate to Urdu" option for a chapter, and verify that the chapter text is accurately translated and preserves technical meaning, with chatbot responses also available in Urdu.
 
-**Acceptance Scenarios**:\
+**Acceptance Scenarios**:
 
-1.  **Given** a new user visits the sign-up page, **When** they complete the registration process using "Better Auth" and provide their software/hardware background, **Then** a new user account is created, and their background information is stored.
-2.  **Given** a user attempts to sign up without providing all mandatory background information, **When** they submit the form, **Then** the system provides clear feedback on missing fields and prevents account creation until resolved.
+1. **Given** a user is logged in, **When** they click the "Translate to Urdu" button on a chapter, **Then** the chapter content is translated into accurate Urdu while preserving technical meaning.
+2. **Given** a user is using the RAG chatbot while in Urdu translation mode, **When** they ask questions about textbook content, **Then** the chatbot responses are provided in Urdu while maintaining technical accuracy.
 
 ---
 
 ### Edge Cases
 
-- What happens when a user's background is very niche, and suitable personalized content cannot be generated? (System should default to general content)
-- How does the system handle very long chapters or complex technical diagrams during translation to Urdu? (System should attempt to translate text, and for images, translate image captions only.)
-- What if "Better Auth" integration fails during signup? (System should gracefully handle errors and guide the user to retry or contact support)
-- What if a chapter has no available personalization options for a given user background? (System should display the default chapter content.)
+- What happens when selected text is very long and exceeds the RAG context window? (System should intelligently summarize or chunk the selection)
+- How does the system handle queries that span multiple chapters when only one section is selected? (System should clarify that responses are limited to the selected content)
+- What if the RAG service is temporarily unavailable during a chat session? (System should gracefully inform the user and offer to retry)
+- How does the system handle very niche user backgrounds for personalization? (System should default to general content when specific personalization isn't available)
 
 ## Requirements *(mandatory)*
 
 ### Functional Requirements
 
-- **FR-001**: The system MUST provide an online textbook with chapters covering ROS 2, Gazebo & Unity, NVIDIA Isaac", and Vision-Language-Action (VLA).
-- **FR-002**: The system MUST support user registration and authentication via "Better Auth".
-- **FR-003**: The system MUST collect the users software and hardware background during signup.
-- **FR-004**: Logged-in users MUST be able to personalize chapter content dynamically via a "Personalize Content" button, adapting content based on their stored background.
-- **FR-005**: Logged-in users MUST be able to translate chapters to Urdu via a "Translate to Urdu" button, preserving technical meaning.
-- **FR-006**: Each chapter MUST include accurate AI/robotics content verified against primary sources or peer-reviewed papers.
-- **FR-007**: The book MUST be deployable via Docusaurus to GitHub Pages.
-- **FR-008**: Chapters MUST be formatted as Markdown source.
-- **FR-009**: The system MUST ensure all content adheres to APA citation style.
-- **FR-010**: The system MUST implement measures to prevent plagiarism.
+- **FR-001**: The system MUST provide an online textbook with chapters covering Physical AI, embodied intelligence, humanoid robotics, and connecting theoretical AI concepts with practical applications.
+- **FR-002**: The system MUST support user registration and authentication via "Better Auth" and collect software/hardware background during signup.
+- **FR-003**: The system MUST implement an embedded RAG chatbot that can answer questions about textbook content with contextual awareness of selected text.
+- **FR-004**: The system MUST support selection-based contextual question answering where the RAG chatbot operates in "Selection Context Mode" when text is selected.
+- **FR-005**: The system MUST clearly distinguish between global book knowledge and user-selected local context in chatbot responses.
+- **FR-006**: The system MUST provide Urdu translation capabilities for both textbook content and chatbot responses.
+- **FR-007**: The system MUST be deployable via Docusaurus to GitHub Pages with all interactive features functional.
+- **FR-008**: The system MUST use Google Gemini API as the primary LLM provider (OpenAI APIs are NOT allowed).
+- **FR-009**: The system MUST use Gemini Embeddings API for vector generation and storage in Qdrant Cloud.
+- **FR-010**: The system MUST support modular and non-breaking feature extensions as specified in the constitution.
+- **FR-011**: The system MUST provide comprehensive logging for all user actions, RAG queries, and system events.
+- **FR-012**: The system MUST expose key metrics for monitoring (user engagement, RAG response quality, translation success rate, error rates).
+- **FR-013**: The system MUST support distributed tracing for request flows across services.
 
 ### Key Entities *(include if feature involves data)*
 
-- **User**: Represents a registered user, contains authentication credentials, software/hardware background, and personalization preferences.
-- **Chapter**: Represents a textbook chapter, contains original Markdown content, associated sources, and potentially personalized content variations.
-- **Personalization Profile**: Contains criteria (e.g., software/hardware background) used to dynamically adapt chapter content.
-- **Translation**: Represents the Urdu version of a chapter or section, linked to the original content.
+- **User**: Represents a registered user, contains authentication credentials, software/hardware background, and personalization preferences. Identity: unique user ID; Uniqueness: email address must be unique.
+- **Chapter**: Represents a textbook chapter, contains original Markdown content, associated sources, and potentially personalized content variations. Identity: unique chapter ID; Uniqueness: chapter title must be unique within the textbook.
+- **Personalization Profile**: Contains criteria (e.g., software/hardware background) used to dynamically adapt chapter content and RAG responses. Identity: tied to user ID; Uniqueness: one profile per user.
+- **Translation**: Represents the Urdu version of a chapter or section, linked to the original content. Identity: unique translation ID; Uniqueness: one Urdu translation per chapter per user session.
+- **RAG Session**: Represents an active chat session with the RAG chatbot, containing conversation history and selected text context. Identity: unique session ID; Uniqueness: one active session per user context.
+- **Selected Text Context**: Represents text selected by the user that constrains RAG chatbot responses. Identity: tied to RAG session; Uniqueness: one active selection per session.
 
-## Success Criteria *(mandatory)*
+## Clarifications
+
+### Session 2025-12-13
+
+- Q: What is the maximum size of text that can be selected for contextual RAG queries? → A: Define specific token/character limits for selection (e.g., 2000 tokens)
+- Q: What is the data retention policy for user profiles and personalization preferences? → A: Define specific retention periods (e.g., 2 years after account inactivity)
+- Q: What is the expected number of concurrent users making RAG queries that the system should support? → A: Support dozens of concurrent users (20-50)
+- Q: How granular should the personalization be? → A: By chapter sections (e.g., examples, explanations)
+- Q: Should Urdu translations be pre-computed and stored, or generated on-demand when a user requests them? → A: On-demand generation with optional caching
+
+## External Dependencies & Failure Modes
+
+### Gemini API (for RAG and translation)
+- Dependency: Google Gemini API for answer generation, summarization, translation, and personalization logic
+- Failure mode: API unavailability, rate limiting, response quality issues
+- Fallback: Display error message and allow users to retry, maintain basic textbook functionality
+
+### Better Auth Service
+- Dependency: Authentication service for user registration/login
+- Failure mode: Auth service down, token validation failures
+- Fallback: Allow guest access to basic content, prompt to retry login later
+
+### Qdrant Cloud
+- Dependency: Vector database for storing embeddings and textbook content
+- Failure mode: Database unavailability, query timeout
+- Fallback: Disable RAG chatbot temporarily while maintaining textbook access
+
+### Neon Postgres
+- Dependency: Database for user profiles and metadata
+- Failure mode: Database connection failure, query timeout
+- Fallback: Allow read-only access to public content, disable personalized features
+
+### GitHub Pages
+- Dependency: Hosting platform for deployed textbook
+- Failure mode: Hosting unavailability
+- Fallback: N/A (platform level failure)
 
 ### Measurable Outcomes
 
 - **SC-001**: User signup and background collection completes successfully for 100% of attempts.
-- **SC-002**: Chapter content personalization loads and adapts correctly within 2 seconds for 95% of requests, supporting up to dozens of concurrent users.
-- **SC-003**: Urdu chapter translations are delivered within 3 seconds for 95% of requests and maintain technical accuracy as judged by 90% of native Urdu-speaking technical reviewers.
+- **SC-002**: RAG chatbot responses are delivered within 3 seconds for 95% of queries, supporting contextual answers based on selected text.
+- **SC-003**: Urdu translations for chapters and chatbot responses are delivered within 3 seconds for 95% of requests and maintain technical accuracy as judged by 90% of native Urdu-speaking technical reviewers.
 - **SC-004**: All chapters are successfully deployed via Docusaurus to GitHub Pages with 100% uptime (excluding maintenance windows).
-- **SC-005**: 99% of chapters meet the word count constraint of 5,0007,000 words.
-- **SC-006**: Each chapter contains a minimum of 15 sources, with at least 50% peer-reviewed.
-- **SC-007**: User feedback on content relevance and personalization quality is consistently positive (e.g., average rating of 4/5 stars or higher).
+- **SC-005**: The RAG chatbot correctly operates in "Selection Context Mode" for 98% of text selection scenarios, providing answers constrained to selected content.
+- **SC-006**: User satisfaction with contextual RAG assistance is consistently positive (e.g., average rating of 4/5 stars or higher).
+- **SC-007**: The system processes textbook content with 99% accuracy in the RAG pipeline, maintaining semantic meaning during embedding and retrieval.
