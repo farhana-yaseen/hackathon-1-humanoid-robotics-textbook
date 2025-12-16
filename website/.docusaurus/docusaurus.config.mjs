@@ -29,7 +29,7 @@ export default {
     "experimental_router": "browser"
   },
   "url": "https://hackathon-1-humanoid-robotics-textb.vercel.app",
-  "baseUrl": "/ur/",
+  "baseUrl": "/",
   "organizationName": "your-github-username",
   "projectName": "humanoid-robotics-textbook",
   "onBrokenLinks": "throw",
