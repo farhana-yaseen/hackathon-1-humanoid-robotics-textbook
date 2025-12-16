@@ -36,6 +36,8 @@
   bottom: 20px !important;
   right: 20px !important;
   z-index: 9999 !important;
+
+  
 }
 
 .chatbot-container {
@@ -43,5 +45,170 @@
   bottom: 80px !important;
   right: 20px !important;
   z-index: 9998 !important;
+  width: 350px;
+  height: 450px;          /* fixed height */
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 15px;
+
+
 }
 
+
+
+
+
+/* Chatbot Container */
+.fixed {
+  z-index: 99999;
+  width: 320px;
+  max-width: 90vw;
+  max-height: 60vh;
+  transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Chatbot Box */
+.bg-white {
+  background-color: #ffffff;
+}
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+.shadow-lg {
+  box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+}
+.border-gray-300 {
+  border: 1px solid #d1d5db;
+}
+.overflow-hidden {
+  overflow: hidden;
+}
+
+/* Header */
+.bg-gray-100 {
+  background-color: #f3f4f6;
+}
+.p-2 {
+  padding: 0.5rem;
+}
+.text-gray-800 {
+  color: #1f2937;
+}
+.font-semibold {
+  font-weight: 600;
+}
+.text-sm {
+  font-size: 0.875rem;
+}
+.cursor-move {
+  cursor: grab;
+}
+.cursor-grabbing {
+  cursor: grabbing;
+}
+
+/* Language Dropdown */
+.bg-gray-200 {
+  background-color: #e5e7eb;
+}
+.text-gray-700 {
+  color: #374151;
+}
+.text-xs {
+  font-size: 0.75rem;
+}
+.rounded {
+  border-radius: 0.25rem;
+}
+.px-1 {
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+}
+.py-1 {
+  padding-top: 0.125rem;
+  padding-bottom: 0.125rem;
+}
+.border-gray-400 {
+  border: 1px solid #9ca3af;
+}
+.focus\:ring-1:focus {
+  box-shadow: 0 0 0 1px #6b7280;
+  outline: none;
+}
+
+/* Messages Area */
+.flex-1 {
+  flex: 1;
+}
+.overflow-y-auto {
+  overflow-y: auto;
+}
+.p-2 {
+  padding: 0.5rem;
+}
+.space-y-2 > :not(template) ~ :not(template) {
+  margin-top: 0.5rem;
+}
+.max-h-40 {
+  max-height: 10rem;
+}
+.bg-blue-50 {
+  background-color: #eff6ff;
+}
+.text-gray-500 {
+  color: #6b7280;
+}
+.bg-gray-100 {
+  background-color: #f3f4f6;
+}
+.bg-amber-50 {
+  background-color: #fffbeb;
+}
+
+/* Message Bubbles */
+.bg-blue-500 {
+  background-color: #3b82f6;
+}
+.text-white {
+  color: #ffffff;
+}
+.rounded-tr-sm {
+  border-top-right-radius: 0.125rem;
+}
+.bg-gray-100 {
+  background-color: #f3f4f6;
+}
+.rounded-tl-sm {
+  border-top-left-radius: 0.125rem;
+}
+
+/* Input Area */
+.border-t {
+  border-top: 1px solid #d1d5db;
+}
+.bg-gray-50 {
+  background-color: #f9fafb;
+}
+.focus\:bg-white:focus {
+  background-color: #ffffff;
+}
+.focus\:ring-blue-500:focus {
+  box-shadow: 0 0 0 1px #3b82f6;
+  outline: none;
+}
+.bg-gray-400 {
+  background-color: #9ca3af;
+}
+.cursor-not-allowed {
+  cursor: not-allowed;
+}
+.bg-blue-500 {
+  background-color: #3b82f6;
+}
+.hover\:bg-blue-600:hover {
+  background-color: #2563eb;
+}
