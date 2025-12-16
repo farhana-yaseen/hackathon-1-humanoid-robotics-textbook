@@ -1,182 +1,182 @@
 {
   "docusaurus-plugin-content-docs": {
     "default": {
-      "path": "/docs",
+      "path": "/ur/docs",
       "versions": [
         {
           "name": "current",
           "label": "Next",
           "isLast": true,
-          "path": "/docs",
+          "path": "/ur/docs",
           "mainDocId": "intro",
           "docs": [
             {
               "id": "appendices/hardware-requirements",
-              "path": "/docs/appendices/hardware-requirements"
+              "path": "/ur/docs/appendices/hardware-requirements"
             },
             {
               "id": "appendices/hardware-setup",
-              "path": "/docs/appendices/hardware-setup",
+              "path": "/ur/docs/appendices/hardware-setup",
               "sidebar": "modulesSidebar"
             },
             {
               "id": "appendices/simulation-guides",
-              "path": "/docs/appendices/simulation-guides",
+              "path": "/ur/docs/appendices/simulation-guides",
               "sidebar": "modulesSidebar"
             },
             {
               "id": "capstone/overview",
-              "path": "/docs/capstone/overview",
+              "path": "/ur/docs/capstone/overview",
               "sidebar": "modulesSidebar"
             },
             {
               "id": "intro",
-              "path": "/docs/intro",
+              "path": "/ur/docs/intro",
               "sidebar": "modulesSidebar"
             },
             {
               "id": "introduction/chapter1",
-              "path": "/docs/introduction/chapter1",
+              "path": "/ur/docs/introduction/chapter1",
               "sidebar": "modulesSidebar"
             },
             {
               "id": "introduction/overview",
-              "path": "/docs/introduction/overview"
+              "path": "/ur/docs/introduction/overview"
             },
             {
               "id": "module1/chapter1",
-              "path": "/docs/module1/chapter1",
+              "path": "/ur/docs/module1/chapter1",
               "sidebar": "modulesSidebar"
             },
             {
               "id": "module1/middleware",
-              "path": "/docs/module1/middleware"
+              "path": "/ur/docs/module1/middleware"
             },
             {
               "id": "module1/module1-personalized-example",
-              "path": "/docs/module1/module1-personalized-example"
+              "path": "/ur/docs/module1/module1-personalized-example"
             },
             {
               "id": "module1/overview",
-              "path": "/docs/module1/overview"
+              "path": "/ur/docs/module1/overview"
             },
             {
               "id": "module1/rclpy",
-              "path": "/docs/module1/rclpy"
+              "path": "/ur/docs/module1/rclpy"
             },
             {
               "id": "module1/urdf",
-              "path": "/docs/module1/urdf"
+              "path": "/ur/docs/module1/urdf"
             },
             {
               "id": "module2/chapter1",
-              "path": "/docs/module2/chapter1",
+              "path": "/ur/docs/module2/chapter1",
               "sidebar": "modulesSidebar"
             },
             {
               "id": "module2/environment-building",
-              "path": "/docs/module2/environment-building"
+              "path": "/ur/docs/module2/environment-building"
             },
             {
               "id": "module2/overview",
-              "path": "/docs/module2/overview"
+              "path": "/ur/docs/module2/overview"
             },
             {
               "id": "module2/physics",
-              "path": "/docs/module2/physics"
+              "path": "/ur/docs/module2/physics"
             },
             {
               "id": "module2/rendering",
-              "path": "/docs/module2/rendering"
+              "path": "/ur/docs/module2/rendering"
             },
             {
               "id": "module2/sensor-simulation",
-              "path": "/docs/module2/sensor-simulation"
+              "path": "/ur/docs/module2/sensor-simulation"
             },
             {
               "id": "module3/chapter1",
-              "path": "/docs/module3/chapter1",
+              "path": "/ur/docs/module3/chapter1",
               "sidebar": "modulesSidebar"
             },
             {
               "id": "module3/isaac-ros",
-              "path": "/docs/module3/isaac-ros"
+              "path": "/ur/docs/module3/isaac-ros"
             },
             {
               "id": "module3/nav2",
-              "path": "/docs/module3/nav2"
+              "path": "/ur/docs/module3/nav2"
             },
             {
               "id": "module3/overview",
-              "path": "/docs/module3/overview"
+              "path": "/ur/docs/module3/overview"
             },
             {
               "id": "module3/photorealistic-simulation",
-              "path": "/docs/module3/photorealistic-simulation"
+              "path": "/ur/docs/module3/photorealistic-simulation"
             },
             {
               "id": "module4/chapter1",
-              "path": "/docs/module4/chapter1",
+              "path": "/ur/docs/module4/chapter1",
               "sidebar": "modulesSidebar"
             },
             {
               "id": "module4/cognitive-planning",
-              "path": "/docs/module4/cognitive-planning"
+              "path": "/ur/docs/module4/cognitive-planning"
             },
             {
               "id": "module4/llm-integration",
-              "path": "/docs/module4/llm-integration"
+              "path": "/ur/docs/module4/llm-integration"
             },
             {
               "id": "module4/overview",
-              "path": "/docs/module4/overview"
+              "path": "/ur/docs/module4/overview"
             },
             {
               "id": "module4/vla",
-              "path": "/docs/module4/vla"
+              "path": "/ur/docs/module4/vla"
             },
             {
               "id": "textbook_outline",
-              "path": "/docs/textbook_outline"
+              "path": "/ur/docs/textbook_outline"
             },
             {
               "id": "tutorial-basics/congratulations",
-              "path": "/docs/tutorial-basics/congratulations"
+              "path": "/ur/docs/tutorial-basics/congratulations"
             },
             {
               "id": "tutorial-basics/create-a-blog-post",
-              "path": "/docs/tutorial-basics/create-a-blog-post"
+              "path": "/ur/docs/tutorial-basics/create-a-blog-post"
             },
             {
               "id": "tutorial-basics/create-a-document",
-              "path": "/docs/tutorial-basics/create-a-document"
+              "path": "/ur/docs/tutorial-basics/create-a-document"
             },
             {
               "id": "tutorial-basics/create-a-page",
-              "path": "/docs/tutorial-basics/create-a-page"
+              "path": "/ur/docs/tutorial-basics/create-a-page"
             },
             {
               "id": "tutorial-basics/deploy-your-site",
-              "path": "/docs/tutorial-basics/deploy-your-site"
+              "path": "/ur/docs/tutorial-basics/deploy-your-site"
             },
             {
               "id": "tutorial-basics/markdown-features",
-              "path": "/docs/tutorial-basics/markdown-features"
+              "path": "/ur/docs/tutorial-basics/markdown-features"
             },
             {
               "id": "tutorial-extras/manage-docs-versions",
-              "path": "/docs/tutorial-extras/manage-docs-versions"
+              "path": "/ur/docs/tutorial-extras/manage-docs-versions"
             },
             {
               "id": "tutorial-extras/translate-your-site",
-              "path": "/docs/tutorial-extras/translate-your-site"
+              "path": "/ur/docs/tutorial-extras/translate-your-site"
             }
           ],
           "draftIds": [],
           "sidebars": {
             "modulesSidebar": {
               "link": {
-                "path": "/docs/intro",
+                "path": "/ur/docs/intro",
                 "label": "intro"
               }
             }
