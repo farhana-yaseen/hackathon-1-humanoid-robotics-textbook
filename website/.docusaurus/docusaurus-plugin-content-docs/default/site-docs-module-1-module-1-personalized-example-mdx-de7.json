@@ -5,10 +5,10 @@
   "source": "@site/docs/module1/module1-personalized-example.mdx",
   "sourceDirName": "module1",
   "slug": "/module1/module1-personalized-example",
-  "permalink": "/ur/docs/module1/module1-personalized-example",
+  "permalink": "/docs/module1/module1-personalized-example",
   "draft": false,
   "unlisted": false,
-  "editUrl": "https://github.com/your-github-username/humanoid-robotics-textbook/tree/main/website/docs/module1/module1-personalized-example.mdx",
+  "editUrl": "https://github.com/farhana-yaseen/hackathon-1-humanoid-robotics-textbook/tree/main/website/docs/module1/module1-personalized-example.mdx",
   "tags": [],
   "version": "current",
   "frontMatter": {}

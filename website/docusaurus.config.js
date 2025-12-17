@@ -1,8 +1,8 @@
 const {themes: prismThemes} = require('prism-react-renderer');
-const dotenv = require('dotenv');
+// const dotenv = require('dotenv');
 
 // Load environment variables from .env file
-dotenv.config();
+// dotenv.config();
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
@@ -24,8 +24,8 @@ const config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'your-github-username', // Usually your GitHub org/user name.
-  projectName: 'humanoid-robotics-textbook', // Usually your repo name.
+  organizationName: 'farhana-yaseen', // Usually your GitHub org/user name.
+  projectName: 'hackathon-1-humanoid-robotics-textbook', // Usually your repo name.
 
   onBrokenLinks: 'throw',
 
@@ -42,11 +42,11 @@ const config = {
       'classic',
       {
         docs: {
-          sidebarPath: './sidebars.ts',
+          sidebarPath: './sidebars.js',
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/your-github-username/humanoid-robotics-textbook/tree/main/website/',
+            'https://github.com/farhana-yaseen/hackathon-1-humanoid-robotics-textbook/tree/main/website/',
         },
         blog: {
           showReadingTime: true,
@@ -57,7 +57,7 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/farhana-yaseen/humanoid-robotics-textbook/tree/main/website/',
+            'https://github.com/farhana-yaseen/hackathon-1-humanoid-robotics-textbook/tree/main/website/',
           // Useful options to enforce blogging best practices
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
@@ -95,7 +95,7 @@ const config = {
         },
         {to: '/blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com/your-github-username/humanoid-robotics-textbook',
+          href: 'https://github.com/farhana-yaseen/hackathon-1-humanoid-robotics-textbook',
           label: 'GitHub',
           position: 'right',
         },
@@ -139,7 +139,7 @@ const config = {
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/your-github-username/humanoid-robotics-textbook',
+              href: 'https://github.com/farhana-yaseen/hackathon-1-humanoid-robotics-textbook',
             },
           ],
         },

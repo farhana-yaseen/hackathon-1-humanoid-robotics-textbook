@@ -1,6 +1,6 @@
 {
-  "permalink": "/ur/blog/mdx-blog-post",
-  "editUrl": "https://github.com/farhana-yaseen/humanoid-robotics-textbook/tree/main/website/blog/2021-08-01-mdx-blog-post.mdx",
+  "permalink": "/blog/mdx-blog-post",
+  "editUrl": "https://github.com/farhana-yaseen/hackathon-1-humanoid-robotics-textbook/tree/main/website/blog/2021-08-01-mdx-blog-post.mdx",
   "source": "@site/blog/2021-08-01-mdx-blog-post.mdx",
   "title": "MDX Blog Post",
   "description": "Blog posts support Docusaurus Markdown features, such as MDX.",
@@ -9,7 +9,7 @@
     {
       "inline": false,
       "label": "Docusaurus",
-      "permalink": "/ur/blog/tags/docusaurus",
+      "permalink": "/blog/tags/docusaurus",
       "description": "Docusaurus tag description"
     }
   ],
@@ -21,7 +21,7 @@
       "title": "Docusaurus maintainer",
       "url": "https://sebastienlorber.com",
       "page": {
-        "permalink": "/ur/blog/authors/all-sebastien-lorber-articles"
+        "permalink": "/blog/authors/all-sebastien-lorber-articles"
       },
       "socials": {
         "x": "https://x.com/sebastienlorber",
@@ -46,10 +46,10 @@
   "unlisted": false,
   "prevItem": {
     "title": "Welcome",
-    "permalink": "/ur/blog/welcome"
+    "permalink": "/blog/welcome"
   },
   "nextItem": {
     "title": "Long Blog Post",
-    "permalink": "/ur/blog/long-blog-post"
+    "permalink": "/blog/long-blog-post"
   }
 }

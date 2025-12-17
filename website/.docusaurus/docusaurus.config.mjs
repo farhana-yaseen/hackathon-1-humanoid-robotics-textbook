@@ -29,9 +29,9 @@ export default {
     "experimental_router": "browser"
   },
   "url": "https://hackathon-1-humanoid-robotics-textb.vercel.app",
-  "baseUrl": "/ur/",
-  "organizationName": "your-github-username",
-  "projectName": "humanoid-robotics-textbook",
+  "baseUrl": "/",
+  "organizationName": "farhana-yaseen",
+  "projectName": "hackathon-1-humanoid-robotics-textbook",
   "onBrokenLinks": "throw",
   "i18n": {
     "defaultLocale": "en",
@@ -47,8 +47,8 @@ export default {
       "classic",
       {
         "docs": {
-          "sidebarPath": "./sidebars.ts",
-          "editUrl": "https://github.com/your-github-username/humanoid-robotics-textbook/tree/main/website/"
+          "sidebarPath": "./sidebars.js",
+          "editUrl": "https://github.com/farhana-yaseen/hackathon-1-humanoid-robotics-textbook/tree/main/website/"
         },
         "blog": {
           "showReadingTime": true,
@@ -59,7 +59,7 @@ export default {
             ],
             "xslt": true
           },
-          "editUrl": "https://github.com/farhana-yaseen/humanoid-robotics-textbook/tree/main/website/",
+          "editUrl": "https://github.com/farhana-yaseen/hackathon-1-humanoid-robotics-textbook/tree/main/website/",
           "onInlineTags": "warn",
           "onInlineAuthors": "warn",
           "onUntruncatedBlogPosts": "warn"
@@ -99,7 +99,7 @@ export default {
           "position": "left"
         },
         {
-          "href": "https://github.com/your-github-username/humanoid-robotics-textbook",
+          "href": "https://github.com/farhana-yaseen/hackathon-1-humanoid-robotics-textbook",
           "label": "GitHub",
           "position": "right"
         }
@@ -144,7 +144,7 @@ export default {
             },
             {
               "label": "GitHub",
-              "href": "https://github.com/your-github-username/humanoid-robotics-textbook"
+              "href": "https://github.com/farhana-yaseen/hackathon-1-humanoid-robotics-textbook"
             }
           ]
         }

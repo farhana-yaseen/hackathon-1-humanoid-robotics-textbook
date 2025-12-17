@@ -5,10 +5,10 @@
   "source": "@site/docs/module2/sensor-simulation.md",
   "sourceDirName": "module2",
   "slug": "/module2/sensor-simulation",
-  "permalink": "/ur/docs/module2/sensor-simulation",
+  "permalink": "/docs/module2/sensor-simulation",
   "draft": false,
   "unlisted": false,
-  "editUrl": "https://github.com/your-github-username/humanoid-robotics-textbook/tree/main/website/docs/module2/sensor-simulation.md",
+  "editUrl": "https://github.com/farhana-yaseen/hackathon-1-humanoid-robotics-textbook/tree/main/website/docs/module2/sensor-simulation.md",
   "tags": [],
   "version": "current",
   "frontMatter": {}
