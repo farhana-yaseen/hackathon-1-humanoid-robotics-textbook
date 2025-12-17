@@ -1,19 +1,9 @@
-import React, { createContext, useContext, ReactNode, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useSession, signIn, signUp, signOut } from '../auth/betterAuthClient';
 
-interface AuthContextType {
-  user: any;
-  isAuthenticated: boolean;
-  loading: boolean;
-  signIn: typeof signIn;
-  signUp: typeof signUp;
-  signOut: typeof signOut;
-  updateUserBackground: (background: any) => Promise<void>;
-}
+const AuthContext = createContext(undefined);
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
+export const AuthProvider = ({ children }) => {
   const { data: session, isLoading } = useSession();
   const [loading, setLoading] = useState(true);
 
@@ -25,7 +15,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, [isLoading]);
 
   // Function to update user background information
-  const updateUserBackground = async (background: any) => {
+  const updateUserBackground = async (background) => {
     try {
       const userId = session?.user?.id;
       if (!userId) {
@@ -56,7 +46,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const contextValue: AuthContextType = {
+  const contextValue = {
     user: session?.user,
     isAuthenticated: !!session?.user,
     loading: loading,

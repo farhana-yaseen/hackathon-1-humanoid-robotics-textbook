@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSession } from '../auth/betterAuthClient';
 
-interface TranslateContentProps {
-  chapterTitle: string;
-  chapterContent: string;
-}
-
-const TranslateContent: React.FC<TranslateContentProps> = ({ chapterTitle, chapterContent }) => {
+const TranslateContent = ({ chapterTitle, chapterContent }) => {
   const { data: session, status } = useSession();
   const [isTranslated, setIsTranslated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -38,10 +33,10 @@ const TranslateContent: React.FC<TranslateContentProps> = ({ chapterTitle, chapt
   };
 
   const translateContentToUrduWithBackend = async (
-    content: string,
-    title: string
-  ): Promise<string> => {
-    const response = await fetch(`${(typeof window !== 'undefined' && (window as any).BACKEND_API_URL) || 'http://localhost:8000'}/api/translate-content`, {
+    content,
+    title
+  ) => {
+    const response = await fetch(`${(typeof window !== 'undefined' && window.BACKEND_API_URL) || 'http://localhost:8000'}/api/translate-content}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -90,11 +85,11 @@ const TranslateContent: React.FC<TranslateContentProps> = ({ chapterTitle, chapt
       <div className="flex gap-4 mb-4 flex-wrap">
         {!isTranslated ? (
           <button
-            className={`px-4 py-2 rounded text-white font-medium transition-colors ${
-              isLoading
+            className={'px-4 py-2 rounded text-white font-medium transition-colors ' +
+              (isLoading
                 ? 'bg-gray-400 cursor-not-allowed'
                 : 'bg-orange-500 hover:bg-orange-600'
-            }`}
+              )}
             onClick={handleTranslate}
             disabled={isLoading}
           >

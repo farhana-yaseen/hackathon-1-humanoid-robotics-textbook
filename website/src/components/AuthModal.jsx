@@ -1,14 +1,7 @@
 import React, { useState } from 'react';
 import { signIn, signUp } from '../auth/betterAuthClient';
 
-interface AuthModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  mode: 'signin' | 'signup';
-  onModeChange: (mode: 'signin' | 'signup') => void;
-}
-
-const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, mode, onModeChange }) => {
+const AuthModal = ({ isOpen, onClose, mode, onModeChange }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -23,7 +16,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, mode, onModeChan
 
   if (!isOpen) return null;
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setIsSubmitting(true);
@@ -80,7 +73,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, mode, onModeChan
           alert('Account created successfully!');
           // Close the modal after successful signup
           onClose();
-        } catch (authError: any) {
+        } catch (authError) {
           console.error('Auth signup error:', authError);
           // Provide more helpful error message for common issues
           let errorMessage = authError.message || 'An error occurred during signup';
@@ -107,7 +100,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, mode, onModeChan
           alert('Signed in successfully!');
           // Close the modal after successful sign in
           onClose();
-        } catch (authError: any) {
+        } catch (authError) {
           console.error('Auth sign in error:', authError);
           // Provide more helpful error message for common issues
           let errorMessage = authError.message || 'An error occurred during sign in';
@@ -120,7 +113,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, mode, onModeChan
           setError(errorMessage);
         }
       }
-    } catch (err: any) {
+    } catch (err) {
       console.error(`${mode} error:`, err);
       setError(err.message || `An error occurred during ${mode}`);
     } finally {

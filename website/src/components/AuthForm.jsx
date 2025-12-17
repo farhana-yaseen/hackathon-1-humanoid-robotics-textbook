@@ -1,13 +1,8 @@
 import React, { useState } from 'react';
 import { signupUser, loginUser } from '../utils/auth'; // Import from the new auth utility
 
-interface AuthFormProps {
-  onSuccess: () => void;
-  onError: (message: string) => void;
-}
-
-export default function AuthForm({ onSuccess, onError }: AuthFormProps): JSX.Element {
-  const [formType, setFormType] = useState<'login' | 'signup'>('login'); // New state for form type
+export default function AuthForm({ onSuccess, onError }) {
+  const [formType, setFormType] = useState('login'); // New state for form type
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [softwareBackground, setSoftwareBackground] = useState('');
@@ -15,7 +10,7 @@ export default function AuthForm({ onSuccess, onError }: AuthFormProps): JSX.Ele
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(''); // New state for error messages
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
     setErrorMessage(''); // Clear previous errors
@@ -24,7 +19,7 @@ export default function AuthForm({ onSuccess, onError }: AuthFormProps): JSX.Ele
       console.log('Login successful');
       localStorage.setItem('loggedInUserEmail', email); // Mock user session
       onSuccess();
-    } catch (error: any) {
+    } catch (error) {
       setErrorMessage(error.message || 'Login failed'); // Set error message
       onError(error.message || 'Login failed');
     } finally {
@@ -32,7 +27,7 @@ export default function AuthForm({ onSuccess, onError }: AuthFormProps): JSX.Ele
     }
   };
 
-  const handleSignup = async (e: React.FormEvent) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
 
     // Client-side validation for required background fields
@@ -55,7 +50,7 @@ export default function AuthForm({ onSuccess, onError }: AuthFormProps): JSX.Ele
       console.log('Signup successful');
       localStorage.setItem('loggedInUserEmail', email); // Mock user session
       onSuccess();
-    } catch (error: any) {
+    } catch (error) {
       setErrorMessage(error.message || 'Signup failed'); // Set error message
       onError(error.message || 'Signup failed');
     } finally {

@@ -3,17 +3,9 @@ import ChatWidget from "@site/src/components/ChatWidget";
 import { AuthProvider } from "@site/src/contexts/AuthContext";
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
-// Inject environment variables to window object for client-side use
-// This is a workaround to access environment variables in the browser
-declare global {
-  interface Window {
-    betterAuthUrl: string;
-  }
-}
-
 export default function Root({ children }) {
   const context = useDocusaurusContext();
-  const { betterAuthUrl } = context.siteConfig.customFields as { betterAuthUrl?: string };
+  const { betterAuthUrl } = context.siteConfig.customFields || {};
 
   // Set the betterAuthUrl on the window object when the component mounts
   React.useEffect(() => {

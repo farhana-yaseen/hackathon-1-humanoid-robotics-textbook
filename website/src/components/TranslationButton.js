@@ -1,15 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 
-interface TranslationButtonProps {
-  chapterId: string;
-  content: string;
-  onTranslationComplete: (translatedContent: string) => void;
-  onTranslationStart?: () => void;
-  onTranslationError?: (error: string) => void;
-}
-
-const TranslationButton: React.FC<TranslationButtonProps> = ({
+const TranslationButton = ({
   chapterId,
   content,
   onTranslationComplete,

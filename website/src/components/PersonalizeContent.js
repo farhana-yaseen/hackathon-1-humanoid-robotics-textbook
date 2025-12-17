@@ -1,17 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useSession } from '../auth/betterAuthClient';
-import { userBackgroundService, UserBackground } from '../services/userBackground';
+import { userBackgroundService } from '../services/userBackground';
 
-interface PersonalizeContentProps {
-  chapterTitle: string;
-  chapterContent: string;
-}
-
-const PersonalizeContent: React.FC<PersonalizeContentProps> = ({ chapterTitle, chapterContent }) => {
+const PersonalizeContent = ({ chapterTitle, chapterContent }) => {
   const { data: session, status } = useSession();
   const [isPersonalized, setIsPersonalized] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [userBackground, setUserBackground] = useState<UserBackground | null>(null);
+  const [userBackground, setUserBackground] = useState(null);
   const [personalizedContent, setPersonalizedContent] = useState('');
   const [showOptions, setShowOptions] = useState(false);
 
@@ -61,11 +56,11 @@ const PersonalizeContent: React.FC<PersonalizeContentProps> = ({ chapterTitle, c
   };
 
   const personalizeContentWithBackend = async (
-    content: string,
-    background: UserBackground,
-    title: string
-  ): Promise<string> => {
-    const response = await fetch(`${(typeof window !== 'undefined' && (window as any).BACKEND_API_URL) || 'http://localhost:8000'}/api/personalize-content`, {
+    content,
+    background,
+    title
+  ) => {
+    const response = await fetch(`${(typeof window !== 'undefined' && window.BACKEND_API_URL) || 'http://localhost:8000'}/api/personalize-content`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

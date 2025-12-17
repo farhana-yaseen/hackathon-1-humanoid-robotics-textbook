@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Chatbot from '../Chatbot'; // Import the existing Chatbot component
 
-const ChatWidget: React.FC = () => {
+const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleChat = () => {

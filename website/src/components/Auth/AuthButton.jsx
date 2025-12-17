@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import OnboardingForm from './OnboardingForm';
 
-const AuthButton: React.FC = () => {
+const AuthButton = () => {
   const [showForm, setShowForm] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [email, setEmail] = useState('');
@@ -12,7 +12,7 @@ const AuthButton: React.FC = () => {
   const [isLoginView, setIsLoginView] = useState(true); // true for login, false for signup
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userEmail, setUserEmail] = useState('');
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef(null);
 
   // Check if user is already logged in on component mount
   useEffect(() => {
@@ -25,8 +25,8 @@ const AuthButton: React.FC = () => {
 
   // Close dropdown when clicking outside
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setShowForm(false);
       }
     };
@@ -37,7 +37,7 @@ const AuthButton: React.FC = () => {
     };
   }, []);
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setError('');
@@ -58,7 +58,7 @@ const AuthButton: React.FC = () => {
       if (!hasCompletedOnboarding) {
         setShowOnboarding(true);
       }
-    } catch (err: any) {
+    } catch (err) {
       console.error('Login error:', err);
       setError(err.message || 'An error occurred during login');
     } finally {
@@ -66,7 +66,7 @@ const AuthButton: React.FC = () => {
     }
   };
 
-  const handleSignup = async (e: React.FormEvent) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setError('');
@@ -90,7 +90,7 @@ const AuthButton: React.FC = () => {
 
       // Show onboarding form after successful signup
       setShowOnboarding(true);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Signup error:', err);
       setError(err.message || 'An error occurred during signup');
     } finally {
@@ -258,7 +258,7 @@ const AuthButton: React.FC = () => {
 };
 
 // Simple hash function for generating user IDs
-function hashCode(str: string): number {
+function hashCode(str) {
   let hash = 0;
   for (let i = 0; i < str.length; i++) {
     const char = str.charCodeAt(i);

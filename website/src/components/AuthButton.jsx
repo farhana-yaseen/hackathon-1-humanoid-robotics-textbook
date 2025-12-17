@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { signIn, signOut, signUp } from '../auth/betterAuthClient';
 
-const AuthButton: React.FC = () => {
+const AuthButton = () => {
   const { user, isAuthenticated, loading, signOut: contextSignOut } = useAuth();
   const [showForm, setShowForm] = useState(false);
   const [email, setEmail] = useState('');
@@ -11,12 +11,12 @@ const AuthButton: React.FC = () => {
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoginView, setIsLoginView] = useState(true); // true for login, false for signup
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef(null);
 
   // Close dropdown when clicking outside
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setShowForm(false);
       }
     };
@@ -27,7 +27,7 @@ const AuthButton: React.FC = () => {
     };
   }, []);
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setError('');
@@ -46,7 +46,7 @@ const AuthButton: React.FC = () => {
       // Better Auth handles session automatically
       // Close the form after successful login
       setShowForm(false);
-    } catch (err: unknown) {
+    } catch (err) {
       console.error('Signin error:', err);
       setError(err instanceof Error ? err.message : 'An error occurred during signin');
     } finally {
@@ -54,7 +54,7 @@ const AuthButton: React.FC = () => {
     }
   };
 
-  const handleSignup = async (e: React.FormEvent) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setError('');
@@ -78,7 +78,7 @@ const AuthButton: React.FC = () => {
 
       // After successful signup, close the form
       setShowForm(false);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Signup error:', err);
       setError(err.message || 'An error occurred during signup');
     } finally {

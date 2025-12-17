@@ -1,28 +1,12 @@
 import React, { useState } from 'react';
 
-interface OnboardingFormProps {
-  userId: string;
-  onComplete: () => void;
-}
-
-interface UserProfile {
-  software_background?: string;
-  hardware_background?: string;
-  robotics_experience?: string;
-  programming_languages?: string[];
-  hardware_platforms?: string[];
-  years_of_experience?: number;
-  primary_interest?: string;
-  education_level?: string;
-}
-
-const OnboardingForm: React.FC<OnboardingFormProps> = ({ userId, onComplete }) => {
+const OnboardingForm = ({ userId, onComplete }) => {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   // Profile state
-  const [profile, setProfile] = useState<UserProfile>({
+  const [profile, setProfile] = useState({
     software_background: '',
     hardware_background: '',
     robotics_experience: '',
@@ -46,7 +30,7 @@ const OnboardingForm: React.FC<OnboardingFormProps> = ({ userId, onComplete }) =
     }
   };
 
-  const handleRemoveLanguage = (lang: string) => {
+  const handleRemoveLanguage = (lang) => {
     setProfile({
       ...profile,
       programming_languages: (profile.programming_languages || []).filter(l => l !== lang)
@@ -63,7 +47,7 @@ const OnboardingForm: React.FC<OnboardingFormProps> = ({ userId, onComplete }) =
     }
   };
 
-  const handleRemovePlatform = (platform: string) => {
+  const handleRemovePlatform = (platform) => {
     setProfile({
       ...profile,
       hardware_platforms: (profile.hardware_platforms || []).filter(p => p !== platform)

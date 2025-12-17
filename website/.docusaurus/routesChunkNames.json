@@ -42,15 +42,15 @@
       "plugin": "plugin---docusaurus-debugb-38-ad3"
     }
   },
-  "/auth/signin-a32": {
-    "__comp": "__comp---site-src-pages-auth-signin-tsx-687-a8d",
+  "/auth/signin-df3": {
+    "__comp": "__comp---site-src-pages-auth-signin-js-6-c-7-1b5",
     "__context": {
       "plugin": "plugin---auth-signina-74-7af"
     },
     "config": "config---auth-signin-5-e-9-1f6"
   },
-  "/auth/signup-94d": {
-    "__comp": "__comp---site-src-pages-auth-signup-tsx-48-e-c8c",
+  "/auth/signup-e56": {
+    "__comp": "__comp---site-src-pages-auth-signup-js-7-f-7-a8d",
     "__context": {
       "plugin": "plugin---auth-signina-74-7af"
     },
@@ -256,8 +256,8 @@
     "sidebar": "sidebar---blog-814-8ac",
     "content": "content---blog-welcomed-9-f-ffb"
   },
-  "/book-73b": {
-    "__comp": "__comp---site-src-pages-book-tsx-667-924",
+  "/book-513": {
+    "__comp": "__comp---site-src-pages-book-jsd-70-2d2",
     "__context": {
       "plugin": "plugin---auth-signina-74-7af"
     },
@@ -435,8 +435,8 @@
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---docs-tutorial-extras-translate-your-sitee-44-ddf"
   },
-  "/-e5f": {
-    "__comp": "__comp---site-src-pages-index-tsx-1-df-d3e",
+  "/-2e1": {
+    "__comp": "__comp---site-src-pages-index-jsc-4-f-f99",
     "__context": {
       "plugin": "plugin---auth-signina-74-7af"
     },

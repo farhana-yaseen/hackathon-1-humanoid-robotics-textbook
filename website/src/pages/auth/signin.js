@@ -8,7 +8,7 @@ export default function SignIn() {
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setError('');
@@ -27,7 +27,7 @@ export default function SignIn() {
       // Better Auth handles session automatically
       // Redirect to home page after successful login
       window.location.href = '/';
-    } catch (err: any) {
+    } catch (err) {
       console.error('Signin error:', err);
       setError(err.message || 'An error occurred during signin');
     } finally {

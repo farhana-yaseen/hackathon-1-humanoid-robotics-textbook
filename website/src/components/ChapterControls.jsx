@@ -1,21 +1,6 @@
-
-
-
-
-
-
 import React from 'react';
 import { useSession } from '../auth/betterAuthClient';
 import TranslationButton from './TranslationButton';
-
-interface ChapterControlsProps {
-  chapterId: string;
-  content: string;
-  onPersonalizeClick: () => void;
-  onTranslationComplete: (translatedContent: string) => void;
-  onTranslationStart?: () => void;
-  onTranslationError?: (error: string) => void;
-}
 
 export default function ChapterControls({
   chapterId,
@@ -24,7 +9,7 @@ export default function ChapterControls({
   onTranslationComplete,
   onTranslationStart,
   onTranslationError,
-}: ChapterControlsProps): JSX.Element {
+}) {
   const { data: session, status } = useSession();
 
   // Only show controls to logged-in users

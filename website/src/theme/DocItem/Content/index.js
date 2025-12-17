@@ -1,11 +1,11 @@
-import React, { useEffect, useState, JSX } from 'react';
+import React, { useEffect, useState } from 'react';
 import Content from '@theme-original/DocItem/Content';
 import PersonalizeContent from '@site/src/components/PersonalizeContent';
 import TranslateContent from '@site/src/components/TranslateContent';
 
-export default function ContentWrapper(props): JSX.Element {
-  const [content, setContent] = useState<string>('');
-  const [title, setTitle] = useState<string>('');
+export default function ContentWrapper(props) {
+  const [content, setContent] = useState('');
+  const [title, setTitle] = useState('');
   const [hasInitialized, setHasInitialized] = useState(false);
 
   // Extract content and title from props when available

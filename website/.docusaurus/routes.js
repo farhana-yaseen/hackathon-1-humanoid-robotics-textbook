@@ -39,12 +39,12 @@ export default [
   },
   {
     path: '/auth/signin',
-    component: ComponentCreator('/auth/signin', 'a32'),
+    component: ComponentCreator('/auth/signin', 'df3'),
     exact: true
   },
   {
     path: '/auth/signup',
-    component: ComponentCreator('/auth/signup', '94d'),
+    component: ComponentCreator('/auth/signup', 'e56'),
     exact: true
   },
   {
@@ -119,7 +119,7 @@ export default [
   },
   {
     path: '/book',
-    component: ComponentCreator('/book', '73b'),
+    component: ComponentCreator('/book', '513'),
     exact: true
   },
   {
@@ -346,7 +346,7 @@ export default [
   },
   {
     path: '/',
-    component: ComponentCreator('/', 'e5f'),
+    component: ComponentCreator('/', '2e1'),
     exact: true
   },
   {
