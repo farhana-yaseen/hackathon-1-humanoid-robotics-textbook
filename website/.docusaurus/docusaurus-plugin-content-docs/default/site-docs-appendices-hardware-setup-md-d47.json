@@ -5,7 +5,7 @@
   "source": "@site/docs/appendices/hardware-setup.md",
   "sourceDirName": "appendices",
   "slug": "/appendices/hardware-setup",
-  "permalink": "/ur/docs/appendices/hardware-setup",
+  "permalink": "/docs/appendices/hardware-setup",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/your-github-username/humanoid-robotics-textbook/tree/main/website/docs/appendices/hardware-setup.md",
@@ -15,10 +15,10 @@
   "sidebar": "modulesSidebar",
   "previous": {
     "title": "overview",
-    "permalink": "/ur/docs/capstone/overview"
+    "permalink": "/docs/capstone/overview"
   },
   "next": {
     "title": "simulation-guides",
-    "permalink": "/ur/docs/appendices/simulation-guides"
+    "permalink": "/docs/appendices/simulation-guides"
   }
 }

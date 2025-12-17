@@ -5,7 +5,7 @@
   "source": "@site/docs/intro.md",
   "sourceDirName": ".",
   "slug": "/intro",
-  "permalink": "/ur/docs/intro",
+  "permalink": "/docs/intro",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/your-github-username/humanoid-robotics-textbook/tree/main/website/docs/intro.md",
@@ -18,6 +18,6 @@
   "sidebar": "modulesSidebar",
   "next": {
     "title": "Chapter 1: Introduction to Physical AI and Humanoid Robotics",
-    "permalink": "/ur/docs/introduction/chapter1"
+    "permalink": "/docs/introduction/chapter1"
   }
 }
