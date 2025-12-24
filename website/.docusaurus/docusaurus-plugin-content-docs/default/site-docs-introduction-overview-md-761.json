@@ -1,0 +1,15 @@
+{
+  "id": "introduction/overview",
+  "title": "overview",
+  "description": "Introduction Overview",
+  "source": "@site/docs/introduction/overview.md",
+  "sourceDirName": "introduction",
+  "slug": "/introduction/overview",
+  "permalink": "/docs/introduction/overview",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/farhana-yaseen/hackathon-1-humanoid-robotics-textbook/tree/main/website/docs/introduction/overview.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

@@ -1,0 +1,15 @@
+{
+  "id": "module2/overview",
+  "title": "overview",
+  "description": "Module 2 Overview",
+  "source": "@site/docs/module2/overview.md",
+  "sourceDirName": "module2",
+  "slug": "/module2/overview",
+  "permalink": "/docs/module2/overview",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/farhana-yaseen/hackathon-1-humanoid-robotics-textbook/tree/main/website/docs/module2/overview.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

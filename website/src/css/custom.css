@@ -1,0 +1,428 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #2e8555;
+  --ifm-color-primary-dark: #29784c;
+  --ifm-color-primary-darker: #277148;
+  --ifm-color-primary-darkest: #205d3b;
+  --ifm-color-primary-light: #33925d;
+  --ifm-color-primary-lighter: #359962;
+  --ifm-color-primary-lightest: #3cad6e;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  --ifm-color-primary: #25c2a0;
+  --ifm-color-primary-dark: #21af90;
+  --ifm-color-primary-darker: #1fa588;
+  --ifm-color-primary-darkest: #1a8870;
+  --ifm-color-primary-light: #29d5b0;
+  --ifm-color-primary-lighter: #32d8b4;
+  --ifm-color-primary-lightest: #4fddbf;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+/* Enhanced Signup Form Styling */
+.signup-form-container {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+}
+
+.signup-form-header {
+  text-align: center;
+  padding-bottom: 1.5rem;
+}
+
+.signup-form-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+}
+
+.signup-form-subtitle {
+  color: #64748b;
+  font-size: 1rem;
+}
+
+.signup-form-steps {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.signup-form-step-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.signup-form-step-active {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+  box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3);
+}
+
+.signup-form-step-inactive {
+  background: #e2e8f0;
+  color: #64748b;
+}
+
+.signup-form-step-label {
+  margin-left: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #64748b;
+}
+
+.signup-form-step-connector {
+  flex: 1;
+  height: 2px;
+  background: #e2e8f0;
+  margin: 0 1rem;
+}
+
+.signup-form-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.signup-form-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.signup-form-input-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #334155;
+  font-size: 0.875rem;
+}
+
+.signup-form-button {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+  box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3);
+}
+
+.signup-form-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(59, 130, 246, 0.4);
+}
+
+.signup-form-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.signup-form-button-secondary {
+  background: white;
+  color: #334155;
+  border: 2px solid #e2e8f0;
+}
+
+.signup-form-button-secondary:hover:not(:disabled) {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+.signup-form-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.signup-form-tag-remove {
+  cursor: pointer;
+  font-weight: bold;
+  color: #1d4ed8;
+  transition: color 0.2s ease;
+}
+
+.signup-form-tag-remove:hover {
+  color: #dc2626;
+}
+
+.signup-form-select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 1rem;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.signup-form-select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.signup-form-add-button {
+  padding: 0.75rem 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  background: white;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.signup-form-add-button:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+.signup-form-back-button {
+  padding: 0.75rem 1.5rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  background: white;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.signup-form-back-button:hover:not(:disabled) {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+.signup-form-step-2-title {
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 0.25rem;
+}
+
+.signup-form-step-2-subtitle {
+  text-align: center;
+  color: #64748b;
+  font-size: 0.875rem;
+}
+
+/* Chatbot positioning in bottom-right corner */
+.chatbot-button {
+  position: fixed !important;
+  bottom: 20px !important;
+  right: 20px !important;
+  z-index: 9999 !important;
+
+  
+}
+
+.chatbot-container {
+  position: fixed !important;
+  bottom: 80px !important;
+  right: 20px !important;
+  z-index: 9998 !important;
+  width: 350px;
+  height: 450px;          /* fixed height */
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 15px;
+
+
+}
+
+
+
+
+
+/* Chatbot Container */
+.fixed {
+  z-index: 99999;
+  width: 320px;
+  max-width: 90vw;
+  max-height: 60vh;
+  transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Chatbot Box */
+.bg-white {
+  background-color: #ffffff;
+}
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+.shadow-lg {
+  box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+}
+.border-gray-300 {
+  border: 1px solid #d1d5db;
+}
+.overflow-hidden {
+  overflow: hidden;
+}
+
+/* Header */
+.bg-gray-100 {
+  background-color: #f3f4f6;
+}
+.p-2 {
+  padding: 0.5rem;
+}
+.text-gray-800 {
+  color: #1f2937;
+}
+.font-semibold {
+  font-weight: 600;
+}
+.text-sm {
+  font-size: 0.875rem;
+}
+.cursor-move {
+  cursor: grab;
+}
+.cursor-grabbing {
+  cursor: grabbing;
+}
+
+/* Language Dropdown */
+.bg-gray-200 {
+  background-color: #e5e7eb;
+}
+.text-gray-700 {
+  color: #374151;
+}
+.text-xs {
+  font-size: 0.75rem;
+}
+.rounded {
+  border-radius: 0.25rem;
+}
+.px-1 {
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+}
+.py-1 {
+  padding-top: 0.125rem;
+  padding-bottom: 0.125rem;
+}
+.border-gray-400 {
+  border: 1px solid #9ca3af;
+}
+.focus\:ring-1:focus {
+  box-shadow: 0 0 0 1px #6b7280;
+  outline: none;
+}
+
+/* Messages Area */
+.flex-1 {
+  flex: 1;
+}
+.overflow-y-auto {
+  overflow-y: auto;
+}
+.p-2 {
+  padding: 0.5rem;
+}
+.space-y-2 > :not(template) ~ :not(template) {
+  margin-top: 0.5rem;
+}
+.max-h-40 {
+  max-height: 10rem;
+}
+.bg-blue-50 {
+  background-color: #eff6ff;
+}
+.text-gray-500 {
+  color: #6b7280;
+}
+.bg-gray-100 {
+  background-color: #f3f4f6;
+}
+.bg-amber-50 {
+  background-color: #fffbeb;
+}
+
+/* Message Bubbles */
+.bg-blue-500 {
+  background-color: #3b82f6;
+}
+.text-white {
+  color: #ffffff;
+}
+.rounded-tr-sm {
+  border-top-right-radius: 0.125rem;
+}
+.bg-gray-100 {
+  background-color: #f3f4f6;
+}
+.rounded-tl-sm {
+  border-top-left-radius: 0.125rem;
+}
+
+/* Input Area */
+.border-t {
+  border-top: 1px solid #d1d5db;
+}
+.bg-gray-50 {
+  background-color: #f9fafb;
+}
+.focus\:bg-white:focus {
+  background-color: #ffffff;
+}
+.focus\:ring-blue-500:focus {
+  box-shadow: 0 0 0 1px #3b82f6;
+  outline: none;
+}
+.bg-gray-400 {
+  background-color: #9ca3af;
+}
+.cursor-not-allowed {
+  cursor: not-allowed;
+}
+.bg-blue-500 {
+  background-color: #3b82f6;
+}
+.hover\:bg-blue-600:hover {
+  background-color: #2563eb;
+}

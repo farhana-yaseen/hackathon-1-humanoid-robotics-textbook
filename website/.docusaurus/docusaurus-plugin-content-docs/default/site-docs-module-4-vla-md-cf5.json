@@ -1,0 +1,15 @@
+{
+  "id": "module4/vla",
+  "title": "Module 4: Vision–Language–Action (VLA)",
+  "description": "Focus",
+  "source": "@site/docs/module4/vla.md",
+  "sourceDirName": "module4",
+  "slug": "/module4/vla",
+  "permalink": "/docs/module4/vla",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/farhana-yaseen/hackathon-1-humanoid-robotics-textbook/tree/main/website/docs/module4/vla.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

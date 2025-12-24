@@ -1,0 +1,15 @@
+{
+  "id": "module2/physics",
+  "title": "physics",
+  "description": "Module 2 Physics",
+  "source": "@site/docs/module2/physics.md",
+  "sourceDirName": "module2",
+  "slug": "/module2/physics",
+  "permalink": "/docs/module2/physics",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/farhana-yaseen/hackathon-1-humanoid-robotics-textbook/tree/main/website/docs/module2/physics.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

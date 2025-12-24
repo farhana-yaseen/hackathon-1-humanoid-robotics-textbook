@@ -1,0 +1,15 @@
+{
+  "id": "module1/rclpy",
+  "title": "rclpy",
+  "description": "Module 1 rclpy",
+  "source": "@site/docs/module1/rclpy.md",
+  "sourceDirName": "module1",
+  "slug": "/module1/rclpy",
+  "permalink": "/docs/module1/rclpy",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/farhana-yaseen/hackathon-1-humanoid-robotics-textbook/tree/main/website/docs/module1/rclpy.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

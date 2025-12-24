@@ -1,0 +1,15 @@
+{
+  "id": "module4/llm-integration",
+  "title": "llm-integration",
+  "description": "Module 4 LLM Integration",
+  "source": "@site/docs/module4/llm-integration.md",
+  "sourceDirName": "module4",
+  "slug": "/module4/llm-integration",
+  "permalink": "/docs/module4/llm-integration",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/farhana-yaseen/hackathon-1-humanoid-robotics-textbook/tree/main/website/docs/module4/llm-integration.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

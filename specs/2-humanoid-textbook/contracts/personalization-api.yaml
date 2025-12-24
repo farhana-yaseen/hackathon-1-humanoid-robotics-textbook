@@ -1,0 +1,220 @@
+openapi: 3.0.0
+info:
+  title: Personalization API
+  description: API for personalizing textbook content based on user background
+  version: 1.0.0
+servers:
+  - url: http://localhost:8000/api
+    description: Development server
+  - url: https://your-deployment-url.com/api
+    description: Production server
+
+paths:
+  /personalize-content:
+    post:
+      summary: Personalize chapter content based on user background
+      description: Takes chapter content and user profile to generate personalized content
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonalizeRequest'
+      responses:
+        '200':
+          description: Successfully personalized content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonalizeResponse'
+        '400':
+          description: Invalid input parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /translate-content:
+    post:
+      summary: Translate chapter content to target language
+      description: Translates chapter content to the specified target language
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TranslateRequest'
+      responses:
+        '200':
+          description: Successfully translated content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TranslateResponse'
+        '400':
+          description: Invalid input parameters or unsupported language
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    PersonalizeRequest:
+      type: object
+      required:
+        - chapter_title
+        - chapter_content
+        - user_background
+      properties:
+        chapter_title:
+          type: string
+          description: Title of the chapter to be personalized
+          example: "The Robotic Nervous System"
+        chapter_content:
+          type: string
+          description: Original chapter content in markdown format
+          example: "# Introduction to ROS 2..."
+        user_background:
+          $ref: '#/components/schemas/UserBackground'
+
+    UserBackground:
+      type: object
+      properties:
+        software_experience:
+          type: string
+          description: User's software experience level
+          example: "intermediate"
+        hardware_experience:
+          type: string
+          description: User's hardware experience level
+          example: "beginner"
+        robotics_experience:
+          type: string
+          description: User's robotics experience level
+          example: "advanced"
+        programming_languages:
+          type: array
+          items:
+            type: string
+          description: Programming languages the user knows
+          example: ["Python", "C++", "ROS"]
+        hardware_platforms:
+          type: array
+          items:
+            type: string
+          description: Hardware platforms the user is familiar with
+          example: ["Arduino", "Raspberry Pi"]
+        years_of_experience:
+          type: integer
+          description: Years of relevant experience
+          example: 3
+        primary_interest:
+          type: string
+          description: User's primary interest in robotics
+          example: "computer vision"
+        education_level:
+          type: string
+          description: User's education level
+          example: "bachelor"
+
+    PersonalizeResponse:
+      type: object
+      required:
+        - personalized_content
+      properties:
+        personalized_content:
+          type: string
+          description: Personalized chapter content
+          example: "# Introduction to ROS 2 (for Python developers)..."
+        personalization_metadata:
+          type: object
+          properties:
+            user_profile_used:
+              $ref: '#/components/schemas/UserBackground'
+            personalization_timestamp:
+              type: string
+              format: date-time
+              description: When the personalization was performed
+            confidence_score:
+              type: number
+              minimum: 0
+              maximum: 1
+              description: Confidence score of the personalization
+
+    TranslateRequest:
+      type: object
+      required:
+        - chapter_title
+        - chapter_content
+        - target_language
+      properties:
+        chapter_title:
+          type: string
+          description: Title of the chapter to be translated
+          example: "The Robotic Nervous System"
+        chapter_content:
+          type: string
+          description: Original chapter content in markdown format
+          example: "# Introduction to ROS 2..."
+        target_language:
+          type: string
+          description: Target language code (e.g., 'ur' for Urdu)
+          example: "ur"
+
+    TranslateResponse:
+      type: object
+      required:
+        - translated_content
+      properties:
+        translated_content:
+          type: string
+          description: Translated chapter content
+          example: "# متعارف ROS 2..."
+        translation_metadata:
+          type: object
+          properties:
+            source_language:
+              type: string
+              description: Source language code
+              example: "en"
+            target_language:
+              type: string
+              description: Target language code
+              example: "ur"
+            translation_timestamp:
+              type: string
+              format: date-time
+              description: When the translation was performed
+            character_count_original:
+              type: integer
+              description: Character count of original content
+            character_count_translated:
+              type: integer
+              description: Character count of translated content
+
+    ErrorResponse:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: "Invalid user background provided"
+        details:
+          type: object
+          description: Additional error details
+          example: {"field": "programming_languages", "reason": "must be an array of strings"}

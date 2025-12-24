@@ -1,0 +1,20 @@
+{
+  "id": "appendices/simulation-guides",
+  "title": "simulation-guides",
+  "description": "Appendices Simulation Guides",
+  "source": "@site/docs/appendices/simulation-guides.md",
+  "sourceDirName": "appendices",
+  "slug": "/appendices/simulation-guides",
+  "permalink": "/docs/appendices/simulation-guides",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/farhana-yaseen/hackathon-1-humanoid-robotics-textbook/tree/main/website/docs/appendices/simulation-guides.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "modulesSidebar",
+  "previous": {
+    "title": "hardware-setup",
+    "permalink": "/docs/appendices/hardware-setup"
+  }
+}

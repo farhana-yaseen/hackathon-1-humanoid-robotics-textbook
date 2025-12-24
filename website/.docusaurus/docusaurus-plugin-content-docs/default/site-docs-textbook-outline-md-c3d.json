@@ -1,0 +1,15 @@
+{
+  "id": "textbook_outline",
+  "title": "Humanoid Robotics Textbook Outline",
+  "description": "Introduction: Physical AI & Humanoid Robotics",
+  "source": "@site/docs/textbook_outline.md",
+  "sourceDirName": ".",
+  "slug": "/textbook_outline",
+  "permalink": "/docs/textbook_outline",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/farhana-yaseen/hackathon-1-humanoid-robotics-textbook/tree/main/website/docs/textbook_outline.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

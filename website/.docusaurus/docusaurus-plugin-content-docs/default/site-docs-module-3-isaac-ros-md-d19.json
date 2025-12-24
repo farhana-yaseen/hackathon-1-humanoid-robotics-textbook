@@ -1,0 +1,15 @@
+{
+  "id": "module3/isaac-ros",
+  "title": "isaac-ros",
+  "description": "Module 3 Isaac ROS",
+  "source": "@site/docs/module3/isaac-ros.md",
+  "sourceDirName": "module3",
+  "slug": "/module3/isaac-ros",
+  "permalink": "/docs/module3/isaac-ros",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/farhana-yaseen/hackathon-1-humanoid-robotics-textbook/tree/main/website/docs/module3/isaac-ros.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

@@ -1,0 +1,15 @@
+{
+  "id": "module3/nav2",
+  "title": "nav2",
+  "description": "Module 3 Nav2",
+  "source": "@site/docs/module3/nav2.md",
+  "sourceDirName": "module3",
+  "slug": "/module3/nav2",
+  "permalink": "/docs/module3/nav2",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/farhana-yaseen/hackathon-1-humanoid-robotics-textbook/tree/main/website/docs/module3/nav2.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

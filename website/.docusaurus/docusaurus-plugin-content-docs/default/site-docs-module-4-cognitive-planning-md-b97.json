@@ -1,0 +1,15 @@
+{
+  "id": "module4/cognitive-planning",
+  "title": "cognitive-planning",
+  "description": "Module 4 Cognitive Planning",
+  "source": "@site/docs/module4/cognitive-planning.md",
+  "sourceDirName": "module4",
+  "slug": "/module4/cognitive-planning",
+  "permalink": "/docs/module4/cognitive-planning",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/farhana-yaseen/hackathon-1-humanoid-robotics-textbook/tree/main/website/docs/module4/cognitive-planning.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

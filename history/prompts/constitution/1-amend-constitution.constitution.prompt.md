@@ -1,6 +1,32 @@
+---
+id: 1
+title: Amend Constitution
+stage: constitution
+date: 2025-12-13
+surface: agent
+model: claude-sonnet-4-5-20250929
+feature: none
+branch: 2-humanoid-textbook
+user: claude
+command: /sp.constitution
+labels: [constitution, governance, hackathon]
+links:
+  spec: null
+  ticket: null
+  adr: null
+  pr: null
+files:
+  - .specify/memory/constitution.md
+tests:
+---
+
+## Prompt
+
+```text
+Updated
 <!--
 SYNC IMPACT REPORT
-Version change: 1.1.0 → 1.3.0
+Version change: 1.2.0 → 1.3.0
 Modified principles: RAG Stack, Embeddings, LLM Provider
 Added sections: Gemini LLM Policy
 Removed sections: OpenAI-specific references
@@ -243,3 +269,23 @@ Agents must:
 **Version**: 1.3.0
 **Ratified**: 2025-12-13
 **Context**: Hackathon / Prototype Phase
+```
+
+## Response snapshot
+
+Updated the project constitution file `.specify/memory/constitution.md` from version 1.1.0 to 1.3.0. The update includes major changes to shift from OpenAI to Google Gemini as the primary LLM provider, adds specific requirements for the RAG chatbot architecture with selection-based contextual functionality, and incorporates hackathon-specific governance principles. The update also includes new sections on Urdu translation, Claude Code intelligence reuse, and updated technology stack requirements focused on the hackathon context.
+
+## Outcome
+
+- ✅ Impact: Constitution updated from 1.1.0 to 1.3.0 with significant changes to LLM policy, RAG architecture, and hackathon governance
+- 🧪 Tests: No tests required for constitution update
+- 📁 Files: Updated .specify/memory/constitution.md with new content
+- 🔁 Next prompts: Continue with hackathon development following updated constitution
+- 🧠 Reflection: Constitution now properly reflects the hackathon context and Gemini-first approach
+
+## Evaluation notes (flywheel)
+
+- Failure modes observed: None
+- Graders run and results (PASS/FAIL): N/A
+- Prompt variant (if applicable): N/A
+- Next experiment (smallest change to try): Implement features according to updated constitution
