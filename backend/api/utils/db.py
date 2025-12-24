@@ -40,7 +40,12 @@ async def create_user_profile(user_id: str, software_experience: Optional[str] =
         primary_interest: User's primary interest in robotics
         education_level: User's education level
     """
-    conn = await asyncpg.connect(DATABASE_URL)
+    try:
+        conn = await asyncpg.connect(DATABASE_URL)
+    except Exception as e:
+        print(f"Database connection error: {e}")
+        raise
+
     try:
         await conn.execute("""
             INSERT INTO user_profiles
@@ -75,7 +80,12 @@ async def get_user_profile(user_id: str) -> Optional[Dict[str, Any]]:
     Returns:
         Dictionary containing user profile information or None if not found
     """
-    conn = await asyncpg.connect(DATABASE_URL)
+    try:
+        conn = await asyncpg.connect(DATABASE_URL)
+    except Exception as e:
+        print(f"Database connection error in get_user_profile: {e}")
+        return None
+
     try:
         row = await conn.fetchrow("""
             SELECT user_id, software_experience, hardware_experience, robotics_experience,
@@ -135,7 +145,12 @@ async def update_user_profile(user_id: str, **kwargs):
     if not updates:
         return  # Nothing to update
 
-    conn = await asyncpg.connect(DATABASE_URL)
+    try:
+        conn = await asyncpg.connect(DATABASE_URL)
+    except Exception as e:
+        print(f"Database connection error in update_user_profile: {e}")
+        raise
+
     try:
         query = f"""
             UPDATE user_profiles

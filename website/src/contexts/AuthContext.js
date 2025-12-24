@@ -17,29 +17,23 @@ export const AuthProvider = ({ children }) => {
   // Function to update user background information
   const updateUserBackground = async (background) => {
     try {
-      const userId = session?.user?.id;
-      if (!userId) {
-        throw new Error('User not authenticated');
-      }
-
-      const response = await fetch('/api/user-background', {
+      // In Better Auth implementation, we might need to update the user's profile
+      // through the Better Auth API or our own profile endpoint
+      const response = await fetch('http://localhost:8000/api/auth/create-profile', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          userId,
-          background,
+          user_id: session?.user?.id || '', // Using Better Auth user ID
+          ...background,
         }),
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to update user background');
+        throw new Error(errorData.detail || 'Failed to update user background');
       }
-
-      // Optionally refetch session to update user data
-      // This would require a mechanism to refresh the session
     } catch (error) {
       console.error('Error updating user background:', error);
       throw error;
@@ -52,9 +46,7 @@ export const AuthProvider = ({ children }) => {
     loading: loading,
     signIn,
     signUp,
-    signOut: async () => {
-      await signOut();
-    },
+    signOut,
     updateUserBackground,
   };
 

@@ -132,18 +132,14 @@ const Chatbot = ({ isEmbedded = false, onClose }) => {
       // For now, using a direct fetch since the backend endpoint might not match the API client format
       // In a real implementation, we would use apiClient.queryRAG once the backend is properly configured
       const BACKEND_URL = getBackendURL(); // Get the backend URL safely
+      // Using GET method with query parameters as the backend endpoint expects
       const response = await fetch(
-        `${BACKEND_URL}/selected-chat-stream`,
+        `${BACKEND_URL}/selected-chat-stream?user_id=test&question=${encodeURIComponent(question)}&selected_text=${encodeURIComponent(contextToUse)}`,
         {
-          method: 'POST',
+          method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            user_id: 'test',
-            question: question,
-            selected_text: contextToUse
-          })
+          }
         }
       );
 
@@ -152,8 +148,31 @@ const Chatbot = ({ isEmbedded = false, onClose }) => {
         throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
       }
 
-      const data = await response.json();
-      const result = data.answer || data.message || "No response received";
+      // Handle streaming response from the backend
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let result = '';
+
+      try {
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          const chunk = decoder.decode(value);
+          // Process SSE data (format: "data: {content}\n\n")
+          const lines = chunk.split('\n');
+          for (const line of lines) {
+            if (line.startsWith('data: ')) {
+              const dataContent = line.slice(6); // Remove "data: " prefix
+              if (dataContent.trim()) {
+                result += dataContent;
+              }
+            }
+          }
+        }
+      } finally {
+        reader.releaseLock();
+      }
 
       // Translate the response if a target language is selected
       const translatedResult = targetLanguage ? await translateResponse(result, targetLanguage) : result;
@@ -180,7 +199,7 @@ const Chatbot = ({ isEmbedded = false, onClose }) => {
   return (
 
 <div
-  className="fixed"
+  className="chatbot-container-modern"
   style={{
     left: isEmbedded ? 'auto' : `${position.x}px`,
     top: isEmbedded ? 'auto' : `${position.y}px`,
@@ -190,95 +209,79 @@ const Chatbot = ({ isEmbedded = false, onClose }) => {
   }}
 >
   {/* Chatbot container */}
-  <div className="bg-white rounded-lg shadow-lg border-gray-300 overflow-hidden transition-all flex flex-col h-auto max-h-[60vh]">
+  <div className="chatbot-container">
 
     {/* Header */}
     <div
-      className={`bg-gray-100 p-2 text-gray-800 flex flex-row items-center justify-between flex-nowrap ${isEmbedded ? '' : 'cursor-move'}`}
+      className="chatbot-header"
       onMouseDown={isEmbedded ? undefined : handleMouseDown}
     >
-      {/* Left side: Chat + Close button */}
+      <h3 className="chatbot-title">Rag Chatbot</h3>
 
-        <h3 className="font-semibold text-sm flex-shrink-0">Rag Chatbot</h3>
+      {isEmbedded && onClose && (
+        <button
+          onClick={onClose}
+          className="chatbot-close"
+          aria-label="Close chat"
+        >
+          ×
+        </button>
+      )}
 
-        {isEmbedded && onClose && (
-          <button
-            onClick={onClose}
-            className="text-gray-500 hover:text-gray-700 focus:outline-none transition-all px-2 py-1 rounded hover:bg-gray-200"
-            aria-label="Close chat"
-          >
-            {/* Close icon */}
-            X
-          </button>
-        )}
-
+      {/* Language dropdown */}
+      <select
+        value={targetLanguage || ''}
+        onChange={(e) => setTargetLanguage(e.target.value || null)}
+        className="chatbot-language-select"
+      >
+        <option value="">EN</option>
+        <option value="Urdu">UR</option>
+      </select>
     </div>
 
-        {/* Language dropdown */}
-        <select
-          value={targetLanguage || ''}
-          onChange={(e) => setTargetLanguage(e.target.value || null)}
-          className="bg-gray-200 text-gray-700 text-xs rounded px-1 py-0.5 border-gray-400 focus:ring-1 focus:ring-gray-500"
-        >
-          <option value="">EN</option>
-          <option value="Urdu">UR</option>
-        </select>
-
     {/* Messages area */}
-    <div className="flex-1 overflow-y-auto p-2 bg-white space-y-2 max-h-40">
+    <div className="chatbot-messages">
 
       {selectedText && messages.length === 0 && (
-        <div className="flex justify-start">
-          <div className="bg-blue-50 text-gray-700 p-2 rounded-lg max-w-[85%] text-xs">
-            <p className="text-xs italic">{selectedText}</p>
-          </div>
+        <div className="chatbot-selected-text">
+          <p className="text-xs italic">{selectedText}</p>
         </div>
       )}
 
       {messages.length === 0 && !selectedText && (
-        <div className="text-center py-3 text-xs text-gray-500">
+        <div className="chatbot-empty-state">
           Ask anything!
         </div>
       )}
 
       {messages.map((msg, index) => (
-        <div key={index} className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}>
-          <div className={`p-2 rounded-lg text-xs ${
-            msg.type === 'user'
-              ? 'bg-blue-500 text-white rounded-tr-sm'
-              : 'bg-gray-100 text-gray-800 rounded-tl-sm'
-          }`}>
-            <p className="whitespace-pre-wrap">{msg.content}</p>
-          </div>
+        <div key={index} className={msg.type === 'user' ? 'chatbot-message-user' : 'chatbot-message-assistant'}>
+          <p className="whitespace-pre-wrap">{msg.content}</p>
         </div>
       ))}
 
       {selectedText && messages.length > 0 && (
-        <div className="flex justify-start">
-          <div className="bg-amber-50 text-gray-700 p-2 rounded-lg max-w-[85%] text-xs">
-            <p className="text-xs italic">{selectedText}</p>
-          </div>
+        <div className="chatbot-selected-text">
+          <p className="text-xs italic">{selectedText}</p>
         </div>
       )}
 
       {isTyping && (
-        <div className="flex justify-start">
-          <div className="bg-gray-100 text-gray-800 p-2 rounded-lg text-xs">
-            <span className="text-xs text-gray-500">Typing...</span>
-          </div>
+        <div className="chatbot-typing">
+          <span>Typing...</span>
         </div>
       )}
     </div>
 
     {/* Input area */}
-    <div className="border-t border-gray-200 p-2 bg-white">
-      <div className="flex space-x-1 ">
+    <div className="chatbot-input-area">
+      <div className="flex space-x-1">
         <input
           type="text"
           value={question}
           placeholder={selectedText ? "Ask..." : "Ask..."}
           onChange={(e) => setQuestion(e.target.value)}
-          className="flex-1 px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 bg-gray-50 focus:bg-white"
+          className="chatbot-input"
           onKeyPress={(e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
               e.preventDefault();
@@ -292,14 +295,9 @@ const Chatbot = ({ isEmbedded = false, onClose }) => {
         <button
           onClick={handleAsk}
           disabled={!question.trim() || isTyping}
-          className={`py-1 rounded text-white ${
-            !question.trim() || isTyping
-              ? "bg-gray-400 cursor-not-allowed"
-              : "bg-blue-500 hover:bg-blue-600"
-          }`}
+          className="chatbot-send-button"
         >
-          Ask me
-          {/* Send icon */}
+          Ask
         </button>
       </div>
     </div>

@@ -1,8 +1,8 @@
 const {themes: prismThemes} = require('prism-react-renderer');
-// const dotenv = require('dotenv');
+const dotenv = require('dotenv');
 
 // Load environment variables from .env file
-// dotenv.config();
+dotenv.config();
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 

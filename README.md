@@ -97,17 +97,34 @@ To populate the vector database with textbook content:
 - Interactive textbook with modular documentation
 - RAG chatbot that answers questions based on selected text
 - Streaming responses for real-time interaction
-- User authentication and personalization
-- Content translation capabilities
+- User authentication with automatic redirect to last accessed module
+- Content translation to Urdu with toggle functionality
+- User personalization and progress tracking
 - Vector search for relevant textbook sections
+- Caching for improved performance
+- Error handling and timeout management
 
 ## API Endpoints
 
+### Core Endpoints
 - `GET /health` - Backend health check
+- `GET /api/health` - API health check
+
+### RAG Endpoints
 - `GET /api/rag/health` - RAG module health check
 - `GET /api/selected-chat-stream` - Streaming chatbot for selected text
 - `POST /api/rag/chat-sync` - Synchronous RAG chat
 - `GET /api/rag/chat-stream` - Streaming RAG chat
+
+### Authentication Redirect Endpoints
+- `POST /api/auth/signin` - Authenticate user and return redirect URL
+- `GET /api/auth/redirect-url` - Get redirect URL for authenticated user
+- `POST /api/auth/modules/{module_id}/access` - Record module access for redirect tracking
+
+### Translation Endpoints
+- `POST /api/translate-content` - Translate content to Urdu with caching
+- `POST /api/v1/translation/chapters/{chapter_id}/translate` - Translate specific chapter with caching
+- `POST /api/translate-chapter` - Simple chapter translation endpoint
 
 ## Environment Variables
 

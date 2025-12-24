@@ -4,7 +4,7 @@ Vector Synchronization Service for Better-Auth feature
 from typing import Optional
 from qdrant_client.http import models
 import logging
-from ..utils.qdrant_client import qdrant
+from ..utils.qdrant_client import qdrant, QDRANT_AVAILABLE
 from ..utils.gemini_client import embed_text
 import json
 from datetime import datetime
@@ -13,7 +13,12 @@ from datetime import datetime
 class VectorSyncService:
     def __init__(self):
         self.collection_name = "user_attributes"
-        self._ensure_collection_exists()
+        # Use the global QDRANT_AVAILABLE flag from qdrant_client
+        if QDRANT_AVAILABLE:
+            try:
+                self._ensure_collection_exists()
+            except Exception as e:
+                logging.error(f"Error with Qdrant collection: {e}")
 
     def _ensure_collection_exists(self):
         """Ensure the user attributes collection exists in Qdrant."""
@@ -37,12 +42,20 @@ class VectorSyncService:
         """
         Sync user profile data to Qdrant vector database
         """
+        if not QDRANT_AVAILABLE:
+            logging.warning(f"Qdrant service unavailable, skipping sync for user: {user_id}")
+            return False
+
         try:
             # Create a text representation of the user's profile for embedding
             profile_text = self._create_profile_text(profile_data)
 
             # Generate embedding for the profile text
-            embedding = embed_text(profile_text)
+            try:
+                embedding = embed_text(profile_text)
+            except Exception as embed_error:
+                logging.error(f"Failed to generate embedding for user {user_id}: {embed_error}")
+                return False
 
             # Store in Qdrant
             qdrant.upsert(
@@ -86,6 +99,10 @@ class VectorSyncService:
         """
         Retrieve user profile from Qdrant vector database
         """
+        if not QDRANT_AVAILABLE:
+            logging.warning(f"Qdrant service unavailable, cannot retrieve user: {user_id}")
+            return None
+
         try:
             results = qdrant.retrieve(
                 collection_name=self.collection_name,
@@ -103,6 +120,10 @@ class VectorSyncService:
         """
         Delete user vector from Qdrant when account is removed
         """
+        if not QDRANT_AVAILABLE:
+            logging.warning(f"Qdrant service unavailable, cannot delete user vector: {user_id}")
+            return False
+
         try:
             qdrant.delete(
                 collection_name=self.collection_name,

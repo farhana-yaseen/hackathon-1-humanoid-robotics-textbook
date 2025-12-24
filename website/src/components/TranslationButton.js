@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
+import { apiClient } from '../services/api_client';
 
 const TranslationButton = ({
   chapterId,
@@ -10,12 +11,28 @@ const TranslationButton = ({
 }) => {
   const [isTranslating, setIsTranslating] = useState(false);
   const [isTranslated, setIsTranslated] = useState(false);
-  const [targetLanguage, setTargetLanguage] = useState('Urdu');
-  const { user } = useAuth();
+  const [currentLanguage, setCurrentLanguage] = useState('en'); // 'en' for English, 'ur' for Urdu
+  const { user, isAuthenticated } = useAuth();
 
-  const translateContent = async () => {
+  // Load language preference from localStorage on component mount
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem(`translation-preference-${chapterId}`);
+    if (savedLanguage) {
+      setCurrentLanguage(savedLanguage);
+      if (savedLanguage === 'ur') {
+        setIsTranslated(true);
+      }
+    }
+  }, [chapterId]);
+
+  const translateToUrdu = async () => {
     if (!chapterId || !content) {
       onTranslationError && onTranslationError('No content to translate');
+      return;
+    }
+
+    if (!isAuthenticated) {
+      onTranslationError && onTranslationError('Please sign in to use translation feature');
       return;
     }
 
@@ -23,75 +40,109 @@ const TranslationButton = ({
     onTranslationStart && onTranslationStart();
 
     try {
-      // Get user session ID or use anonymous session
-      const userSessionId = user?.user_id || `anonymous_${Date.now()}`;
+      // First, record module access
+      await recordModuleAccess(chapterId);
 
-      // Call the backend translation API
-      const response = await fetch(`/api/v1/translation/chapters/${chapterId}/translate`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          chapter_id: chapterId,
-          target_language: targetLanguage,
-          user_session_id: userSessionId
-        }),
+      // Use the apiClient for translation
+      const translationResult = await apiClient.translateChapter({
+        chapter_id: chapterId,
+        target_language: 'ur', // Translate to Urdu
+        user_session_id: user?.id
       });
 
-      if (!response.ok) {
-        throw new Error(`Translation failed: ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      onTranslationComplete(data.translated_content);
+      onTranslationComplete(translationResult.translated_content);
       setIsTranslated(true);
+      setCurrentLanguage('ur');
+
+      // Save language preference to localStorage
+      localStorage.setItem(`translation-preference-${chapterId}`, 'ur');
     } catch (error) {
       console.error('Translation error:', error);
-      onTranslationError && onTranslationError(error instanceof Error ? error.message : 'Translation failed');
+
+      // Handle timeout errors specifically
+      let errorMessage = error instanceof Error ? error.message : 'Translation failed';
+      if (error.message && error.message.includes('timeout')) {
+        errorMessage = 'Translation request timed out. Please try again.';
+      }
+
+      onTranslationError && onTranslationError(errorMessage);
     } finally {
       setIsTranslating(false);
     }
   };
 
-  const toggleTranslation = () => {
-    if (isTranslated) {
-      // Reset to original content
-      onTranslationComplete(content);
+  const toggleTranslation = async () => {
+    if (currentLanguage === 'ur') {
+      // Switch back to English (original content)
+      onTranslationComplete(content); // Return original content
       setIsTranslated(false);
+      setCurrentLanguage('en');
+
+      // Save language preference to localStorage
+      localStorage.setItem(`translation-preference-${chapterId}`, 'en');
     } else {
-      // Start translation
-      translateContent();
+      // Translate to Urdu
+      await translateToUrdu();
+    }
+  };
+
+  const recordModuleAccess = async (moduleId) => {
+    try {
+      const response = await fetch(`http://localhost:8000/api/auth/modules/${moduleId}/access`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_id: user?.id || 'anonymous',
+          module_id: moduleId,
+          position: 0, // For translation, we'll record position as 0
+          session_id: user?.id || `anonymous_${Date.now()}`
+        }),
+      });
+
+      if (!response.ok) {
+        console.warn('Failed to record module access:', response.statusText);
+      }
+    } catch (error) {
+      console.warn('Error recording module access:', error);
     }
   };
 
   return (
     <button
       onClick={toggleTranslation}
-      disabled={isTranslating}
+      disabled={isTranslating || !isAuthenticated}
       className={`
         px-4 py-2 rounded-md font-medium text-sm transition-colors
-        ${isTranslating
+        ${!isAuthenticated
           ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-          : isTranslated
-            ? 'bg-green-100 text-green-800 hover:bg-green-200'
-            : 'bg-blue-600 text-white hover:bg-blue-700'
+          : isTranslating
+            ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+            : currentLanguage === 'ur'
+              ? 'bg-green-100 text-green-800 hover:bg-green-200'
+              : 'bg-blue-600 text-white hover:bg-blue-700'
         }
       `}
     >
-      {isTranslating ? (
+      {!isAuthenticated ? (
+        <span className="flex items-center">
+          <span className="mr-2">🔒</span>
+          Sign In to Translate
+        </span>
+      ) : isTranslating ? (
         <span className="flex items-center">
           <span className="animate-spin mr-2">⏳</span>
-          Translating...
+          Processing...
         </span>
-      ) : isTranslated ? (
+      ) : currentLanguage === 'ur' ? (
         <span className="flex items-center">
-          <span className="mr-2">✅</span>
-          Urdu ({targetLanguage})
+          <span className="mr-2">🇬🇧</span>
+          Translate to English
         </span>
       ) : (
         <span className="flex items-center">
-          <span className="mr-2">🔄</span>
+          <span className="mr-2">🇵🇰</span>
           Translate to Urdu
         </span>
       )}

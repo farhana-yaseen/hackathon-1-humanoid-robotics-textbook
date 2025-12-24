@@ -56,5 +56,15 @@ class RateLimiter:
             return time.time()
 
 
+import os
+
+# Check if we're in development mode
+is_development = os.getenv('ENVIRONMENT', 'development').lower() == 'development'
+
 # Global rate limiter instance
-rate_limiter = RateLimiter(max_attempts=5, window_size=900)  # 5 attempts per 15 minutes
+if is_development:
+    # Very lenient rate limits for development (effectively no rate limiting for testing)
+    rate_limiter = RateLimiter(max_attempts=100, window_size=1)  # 100 attempts per second in development
+else:
+    # Strict rate limits for production
+    rate_limiter = RateLimiter(max_attempts=5, window_size=900)  # 5 attempts per 15 minutes

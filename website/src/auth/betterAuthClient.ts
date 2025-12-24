@@ -1,5 +1,20 @@
-import { createAuthClient } from "better-auth/react";
-import { betterFetch } from "@better-fetch/fetch";
+import { createAuthClient } from "better-auth/client";
+import { createFetch } from "@better-fetch/fetch";
+
+// Initialize the Better Auth client
+const authClient = createAuthClient({
+  fetch: createFetch(),
+  // Update this to match your backend's Better Auth endpoint
+  baseURL: "http://localhost:8000/api/auth", // This should match your backend Better Auth setup
+});
+
+// Extract methods from the auth client
+export const { signIn, signUp, signOut } = authClient;
+
+// Ensure useSession is always a function - provide fallback if not available
+export const useSession = (typeof authClient.useSession === 'function')
+  ? authClient.useSession
+  : () => ({ data: null, status: 'unauthenticated', isLoading: false });
 
 // Define user background interface
 export interface UserBackground {
@@ -12,14 +27,3 @@ export interface UserBackground {
   primaryInterest?: string;
   educationLevel?: string;
 }
-
-// Create the auth client
-export const authClient = createAuthClient({
-  baseURL:
-    (typeof window !== 'undefined' && (window as any).betterAuthUrl) ||
-    "http://localhost:3002", // Use fallback for development
-  fetchConfig: betterFetch,
-});
-
-// Destructure the methods
-export const { signIn, signUp, signOut, useSession } = authClient;

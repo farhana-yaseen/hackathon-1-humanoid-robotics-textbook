@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { signIn, signUp } from '../auth/betterAuthClient';
+import { signin, signup } from '../services/authService';
 
 const AuthModal = ({ isOpen, onClose, mode, onModeChange }) => {
   const [email, setEmail] = useState('');
@@ -29,45 +29,24 @@ const AuthModal = ({ isOpen, onClose, mode, onModeChange }) => {
           return;
         }
 
-        // First, create the account with Better Auth
         try {
-          const authResponse = await signUp.email({
+          const name = email.split('@')[0]; // Use part of email as name
+
+          // Create the account with the backend auth service
+          const authResponse = await signup(
             email,
             password,
-            name: email.split('@')[0], // Use part of email as name
-          });
-
-          if (authResponse?.error) {
-            throw new Error(authResponse.error.message);
-          }
-
-          // After successful signup, save the background information to our Node.js auth service
-          // Use a more flexible approach to handle different environments
-          try {
-            const BACKEND_URL = 'http://localhost:3002';
-            const backgroundResponse = await fetch(`${BACKEND_URL}/api/signup-background`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                email,
-                background: {
-                  roboticsExperience: background.roboticsExperience,
-                  programmingLanguages: background.programmingLanguages,
-                }
-              }),
-            });
-
-            const backgroundData = await backgroundResponse.json();
-
-            if (!backgroundResponse.ok) {
-              console.warn('Background info not saved:', backgroundData.error);
-              // Don't fail the signup if background info fails to save
+            name,
+            {
+              roboticsExperience: background.roboticsExperience,
+              programmingLanguages: background.programmingLanguages
+                ? background.programmingLanguages.split(',').map(lang => lang.trim())
+                : [],
             }
-          } catch (backgroundError) {
-            console.warn('Background info service unavailable:', backgroundError);
-            // Don't fail the signup if background service is unavailable
+          );
+
+          if (!authResponse.success) {
+            throw new Error('Signup failed');
           }
 
           alert('Account created successfully!');
@@ -75,26 +54,15 @@ const AuthModal = ({ isOpen, onClose, mode, onModeChange }) => {
           onClose();
         } catch (authError) {
           console.error('Auth signup error:', authError);
-          // Provide more helpful error message for common issues
-          let errorMessage = authError.message || 'An error occurred during signup';
-
-          // Check if it's a network error related to fetching
-          if (authError.message?.includes('Failed to fetch') || authError.message?.includes('NetworkError')) {
-            errorMessage = 'Authentication service is not available. Please make sure the backend server is running on port 3002.';
-          }
-
-          setError(errorMessage);
+          setError(authError.message || 'An error occurred during signup');
         }
       } else {
         try {
-          const response = await signIn.email({
-            email,
-            password,
-            callbackURL: '/', // Redirect to home page after successful login
-          });
+          // Sign in with the backend auth service
+          const response = await signin(email, password);
 
-          if (response?.error) {
-            throw new Error(response.error.message);
+          if (!response.success) {
+            throw new Error('Sign in failed');
           }
 
           alert('Signed in successfully!');
@@ -102,15 +70,7 @@ const AuthModal = ({ isOpen, onClose, mode, onModeChange }) => {
           onClose();
         } catch (authError) {
           console.error('Auth sign in error:', authError);
-          // Provide more helpful error message for common issues
-          let errorMessage = authError.message || 'An error occurred during sign in';
-
-          // Check if it's a network error related to fetching
-          if (authError.message?.includes('Failed to fetch') || authError.message?.includes('NetworkError')) {
-            errorMessage = 'Authentication service is not available. Please make sure the backend server is running on port 3002.';
-          }
-
-          setError(errorMessage);
+          setError(authError.message || 'An error occurred during sign in');
         }
       }
     } catch (err) {
@@ -291,7 +251,7 @@ const AuthModal = ({ isOpen, onClose, mode, onModeChange }) => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full mt-6 py-3.5 px-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg transition-all duration-300 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+            className="w-full mt-6 py-3.5 px-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg transition-all duration-300 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center better-auth-button"
           >
             {isSubmitting ? (
               <span className="flex items-center">

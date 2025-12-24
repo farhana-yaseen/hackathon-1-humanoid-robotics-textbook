@@ -1,0 +1,140 @@
+openapi: 3.0.0
+info:
+  title: Translation API
+  description: API for translating content to Urdu
+  version: 1.0.0
+servers:
+  - url: http://localhost:8000
+    description: Development server
+  - url: https://api.example.com
+    description: Production server
+paths:
+  /api/translate-content:
+    post:
+      summary: Translate content to Urdu
+      description: Translates the provided content to Urdu using Gemini API
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TranslateRequest'
+      responses:
+        '200':
+          description: Successful translation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TranslateResponse'
+        '400':
+          description: Invalid target language or malformed request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthenticated user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Translation service error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/modules/{module_id}/access:
+    post:
+      summary: Record module access
+      description: Records when a user accesses a module for redirect tracking
+      parameters:
+        - name: module_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID of the module being accessed
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModuleAccessRequest'
+      responses:
+        '200':
+          description: Module access recorded successfully
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthenticated user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    TranslateRequest:
+      type: object
+      required:
+        - chapter_title
+        - chapter_content
+        - target_language
+      properties:
+        chapter_title:
+          type: string
+          description: Title of the chapter being translated
+        chapter_content:
+          type: string
+          description: Content of the chapter being translated
+        target_language:
+          type: string
+          description: Target language code (e.g., 'ur' for Urdu)
+          enum: [ur]
+        user_session_id:
+          type: string
+          description: Optional user session identifier
+    TranslateResponse:
+      type: object
+      required:
+        - translated_content
+      properties:
+        translated_content:
+          type: string
+          description: The translated content
+        cache_key:
+          type: string
+          description: Cache key for future lookups
+        ttl_seconds:
+          type: integer
+          description: Time to live for cache in seconds
+    ModuleAccessRequest:
+      type: object
+      properties:
+        user_session_id:
+          type: string
+          description: User session identifier
+        position:
+          type: integer
+          description: Scroll position or content position (optional)
+    ErrorResponse:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          description: Error message
+        code:
+          type: string
+          description: Error code

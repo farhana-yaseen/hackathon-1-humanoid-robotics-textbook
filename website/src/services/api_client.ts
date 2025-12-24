@@ -1,8 +1,7 @@
 // API client for the Humanoid Robotics Textbook Platform
-import { useAuth } from '../contexts/AuthContext';
 
 // Base API configuration
-const API_BASE_URL = "http://localhost:8000/api/v1";
+const API_BASE_URL = "http://localhost:8001/api/v1";
 
 // API Client interface
 interface TranslationRequest {
@@ -58,61 +57,133 @@ class ApiClient {
 
   // Translation API methods
   async translateChapter(request: TranslationRequest): Promise<TranslationResponse> {
-    const response = await fetch(`${this.baseUrl}/translation/chapters/${request.chapter_id}/translate`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+    };
+
+    // Create an AbortController for timeout
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 35000); // 35 seconds timeout
+
+    try {
+      // Use the correct backend endpoint that we implemented
+      const response = await fetch(`http://localhost:8001/api/v1/translation/chapters/${request.chapter_id}/translate`, {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify({
+          chapter_id: request.chapter_id,
+          target_language: request.target_language || 'ur', // Use lowercase 'ur' as expected by backend
+          user_session_id: request.user_session_id
+        }),
+        signal: controller.signal
+      });
+
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        if (response.status === 408) {
+          throw new Error('Translation request timed out. Please try again.');
+        } else {
+          throw new Error(`Translation API error: ${response.status} ${response.statusText}`);
+        }
+      }
+
+      const result = await response.json();
+
+      // Return in the expected format
+      return {
+        translated_content: result.translated_content,
         chapter_id: request.chapter_id,
-        target_language: request.target_language || 'Urdu',
-        user_session_id: request.user_session_id
-      })
-    });
+        target_language: request.target_language || 'ur',
+        cached: false
+      };
+    } catch (error) {
+      clearTimeout(timeoutId);
 
-    if (!response.ok) {
-      throw new Error(`Translation API error: ${response.status} ${response.statusText}`);
+      if (error instanceof Error && error.name === 'AbortError') {
+        throw new Error('Translation request timed out. Please try again.');
+      }
+
+      throw error;
     }
-
-    return response.json();
   }
 
   async translateText(request: TranslateTextRequest): Promise<TranslateTextResponse> {
-    const response = await fetch(`${this.baseUrl}/translation/text`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        text: request.text,
-        target_language: request.target_language || 'Urdu'
-      })
-    });
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 35000); // 35 seconds timeout
 
-    if (!response.ok) {
-      throw new Error(`Translation API error: ${response.status} ${response.statusText}`);
+    try {
+      const response = await fetch(`${this.baseUrl}/text`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          text: request.text,
+          target_language: request.target_language || 'Urdu'
+        }),
+        signal: controller.signal
+      });
+
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        if (response.status === 408) {
+          throw new Error('Translation request timed out. Please try again.');
+        } else {
+          throw new Error(`Translation API error: ${response.status} ${response.statusText}`);
+        }
+      }
+
+      return await response.json();
+    } catch (error) {
+      clearTimeout(timeoutId);
+
+      if (error instanceof Error && error.name === 'AbortError') {
+        throw new Error('Translation request timed out. Please try again.');
+      }
+
+      throw error;
     }
-
-    return response.json();
   }
 
   async translateChatbotResponse(request: TranslateTextRequest): Promise<TranslateTextResponse> {
-    const response = await fetch(`${this.baseUrl}/translation/chatbot-response`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        text: request.text,
-        target_language: request.target_language || 'Urdu'
-      })
-    });
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 35000); // 35 seconds timeout
 
-    if (!response.ok) {
-      throw new Error(`Translation API error: ${response.status} ${response.statusText}`);
+    try {
+      const response = await fetch(`${this.baseUrl}/chatbot-response`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          text: request.text,
+          target_language: request.target_language || 'Urdu'
+        }),
+        signal: controller.signal
+      });
+
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        if (response.status === 408) {
+          throw new Error('Translation request timed out. Please try again.');
+        } else {
+          throw new Error(`Translation API error: ${response.status} ${response.statusText}`);
+        }
+      }
+
+      return await response.json();
+    } catch (error) {
+      clearTimeout(timeoutId);
+
+      if (error instanceof Error && error.name === 'AbortError') {
+        throw new Error('Translation request timed out. Please try again.');
+      }
+
+      throw error;
     }
-
-    return response.json();
   }
 
   // RAG API methods

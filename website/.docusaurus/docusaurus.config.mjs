@@ -71,7 +71,7 @@ export default {
     ]
   ],
   "customFields": {
-    "betterAuthUrl": "http://localhost:3002"
+    "betterAuthUrl": "http://localhost:8000/api"
   },
   "themeConfig": {
     "image": "img/docusaurus-social-card.jpg",

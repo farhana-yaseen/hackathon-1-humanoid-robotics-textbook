@@ -1,31 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { useSession } from '../auth/betterAuthClient';
+import { useAuth } from '../contexts/AuthContext';
 import { userBackgroundService } from '../services/userBackground';
 
 const PersonalizeContent = ({ chapterTitle, chapterContent }) => {
-  const { data: session, status } = useSession();
+  const { user, isAuthenticated, loading } = useAuth();
   const [isPersonalized, setIsPersonalized] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [userBackground, setUserBackground] = useState(null);
   const [personalizedContent, setPersonalizedContent] = useState('');
   const [showOptions, setShowOptions] = useState(false);
 
-  // Load user background when session is available
+  // Load user background when user is available
   useEffect(() => {
     const loadUserBackground = async () => {
-      if (session?.user?.id) {
-        const background = await userBackgroundService.getUserBackground(session.user.id);
+      if (user?.id) {
+        const background = await userBackgroundService.getUserBackground(user.id);
         setUserBackground(background);
       }
     };
 
-    if (status === 'authenticated') {
+    if (isAuthenticated) {
       loadUserBackground();
     }
-  }, [session, status]);
+  }, [user, isAuthenticated]);
 
   const handlePersonalize = async () => {
-    if (!session) {
+    if (!isAuthenticated) {
       alert('Please sign in to personalize content');
       return;
     }
@@ -94,7 +94,7 @@ const PersonalizeContent = ({ chapterTitle, chapterContent }) => {
     setIsPersonalized(false);
   };
 
-  if (status === 'loading') {
+  if (loading) {
     return (
       <div className="mt-8 p-6 border border-gray-200 rounded-lg bg-gray-50">
         <div className="bg-gray-400 text-white px-4 py-2 rounded cursor-not-allowed">Loading personalization...</div>
@@ -102,7 +102,7 @@ const PersonalizeContent = ({ chapterTitle, chapterContent }) => {
     );
   }
 
-  if (status !== 'authenticated') {
+  if (!isAuthenticated) {
     return (
       <div className="mt-8 p-6 border border-gray-200 rounded-lg bg-gray-50 text-center">
         <div>

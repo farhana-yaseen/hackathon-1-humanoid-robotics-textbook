@@ -69,43 +69,41 @@ export default function SignUp() {
     setIsSubmitting(true);
 
     try {
-      // First, create the account with Better Auth
-      const authResponse = await signUp.email({
+      // Use the Better Auth client to sign up
+      const response = await signUp.email({
         email,
         password,
         name: email.split('@')[0], // Use part of email as name
       });
 
-      if (authResponse?.error) {
-        throw new Error(authResponse.error.message);
+      if (response?.error) {
+        throw new Error(response.error.message || 'Signup failed');
       }
 
-      // After successful signup, save the background information to our Node.js auth service
-      const backgroundResponse = await fetch('http://localhost:3002/api/signup-background', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          background: {
-            softwareExperience: background.softwareExperience,
-            hardwareExperience: background.hardwareExperience,
-            roboticsExperience: background.roboticsExperience,
-            programmingLanguages: background.programmingLanguages,
-            hardwarePlatforms: background.hardwarePlatforms,
-            yearsOfExperience: background.yearsOfExperience,
-            primaryInterest: background.primaryInterest,
-            educationLevel: background.educationLevel
-          }
-        }),
-      });
+      // After successful signup, update user profile with background information
+      if (response?.data?.user?.id) {
+        // Update user background information after successful signup
+        const profileResponse = await fetch('http://localhost:8000/api/auth/create-profile', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            user_id: response.data.user.id,
+            software_background: background.softwareExperience,
+            hardware_background: background.hardwareExperience,
+            robotics_experience: background.roboticsExperience,
+            programming_languages: background.programmingLanguages,
+            hardware_platforms: background.hardwarePlatforms,
+            years_of_experience: background.yearsOfExperience,
+            primary_interest: background.primaryInterest,
+            education_level: background.educationLevel
+          })
+        });
 
-      const backgroundData = await backgroundResponse.json();
-
-      if (!backgroundResponse.ok) {
-        console.warn('Background info not saved:', backgroundData.error);
-        // Don't fail the signup if background info fails to save
+        if (!profileResponse.ok) {
+          console.warn('Failed to save user profile data, but account was created successfully');
+        }
       }
 
       alert('Account created successfully!');
@@ -113,7 +111,16 @@ export default function SignUp() {
       window.location.href = '/';
     } catch (error) {
       console.error('Signup error:', error);
-      alert(`An error occurred during signup: ${error.message}`);
+      let errorMessage = error.message || 'An error occurred during signup';
+
+      // Provide more helpful error message for common issues
+      if (error.message?.includes('Failed to fetch') || error.message?.includes('NetworkError')) {
+        errorMessage = 'Authentication service is not available. Please make sure the backend server is running.';
+      } else if (error.message?.includes('404') || error.message?.includes('not found')) {
+        errorMessage = 'Signup service endpoint not found. Please check if the authentication service is configured correctly.';
+      }
+
+      alert(`An error occurred during signup: ${errorMessage}`);
     } finally {
       setIsSubmitting(false);
     }
@@ -398,12 +405,11 @@ export default function SignUp() {
                       onChange={(e) => setBackground({...background, educationLevel: e.target.value})}
                     >
                       <option value="">Select your level</option>
-                      <option value="high_school">High School</option>
+                      <option value="high-school">High School</option>
                       <option value="undergraduate">Undergraduate</option>
                       <option value="graduate">Graduate</option>
-                      <option value="phd">PhD</option>
+                      <option value="postgraduate">Postgraduate</option>
                       <option value="professional">Professional</option>
-                      <option value="self_taught">Self-Taught</option>
                     </select>
                   </div>
                 </div>

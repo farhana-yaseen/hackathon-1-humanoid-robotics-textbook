@@ -39,3 +39,11 @@ say: "I cannot answer that based on the provided text."
 
     response = model.generate_content(prompt)
     return response.text
+
+
+def generate_translation(prompt: str):
+    """Generate translation using Gemini."""
+    model = genai.GenerativeModel("gemini-2.5-flash")
+
+    response = model.generate_content(prompt)
+    return response.text
