@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkwebsite=globalThis.webpackChunkwebsite||[]).push([[413],{2775:(e,i,t)=>{t.r(i),t.d(i,{default:()=>h});t(6540);var o=t(4848);function h(){return(0,o.jsxs)("div",{children:[(0,o.jsx)("h1",{children:"Humanoid Robotics Book"}),(0,o.jsx)("p",{children:"Welcome to the interactive book with RAG Chatbot!"})]})}}}]);
