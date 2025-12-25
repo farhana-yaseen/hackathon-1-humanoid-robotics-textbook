@@ -133,5 +133,5 @@ desktop.ini
 2-humanoid-textbook
 # backend folder ke liye
 backend/node_modules/
-backend/.env/
+backend/.env
 
