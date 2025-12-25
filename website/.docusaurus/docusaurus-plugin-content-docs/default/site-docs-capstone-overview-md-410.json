@@ -5,7 +5,7 @@
   "source": "@site/docs/capstone/overview.md",
   "sourceDirName": "capstone",
   "slug": "/capstone/overview",
-  "permalink": "/ur/docs/capstone/overview",
+  "permalink": "/docs/capstone/overview",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/farhana-yaseen/hackathon-1-humanoid-robotics-textbook/tree/main/website/docs/capstone/overview.md",
@@ -15,10 +15,10 @@
   "sidebar": "modulesSidebar",
   "previous": {
     "title": "Module 4: Vision–Language–Action (VLA)",
-    "permalink": "/ur/docs/module4/chapter1"
+    "permalink": "/docs/module4/chapter1"
   },
   "next": {
     "title": "hardware-setup",
-    "permalink": "/ur/docs/appendices/hardware-setup"
+    "permalink": "/docs/appendices/hardware-setup"
   }
 }

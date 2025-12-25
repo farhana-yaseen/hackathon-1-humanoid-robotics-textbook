@@ -5,7 +5,7 @@
   "source": "@site/docs/introduction/chapter1.md",
   "sourceDirName": "introduction",
   "slug": "/introduction/chapter1",
-  "permalink": "/ur/docs/introduction/chapter1",
+  "permalink": "/docs/introduction/chapter1",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/farhana-yaseen/hackathon-1-humanoid-robotics-textbook/tree/main/website/docs/introduction/chapter1.md",
@@ -15,10 +15,10 @@
   "sidebar": "modulesSidebar",
   "previous": {
     "title": "Humanoid Robotics Textbook Introduction",
-    "permalink": "/ur/docs/intro"
+    "permalink": "/docs/intro"
   },
   "next": {
     "title": "Module 1: The Robotic Nervous System (ROS 2)",
-    "permalink": "/ur/docs/module1/chapter1"
+    "permalink": "/docs/module1/chapter1"
   }
 }
