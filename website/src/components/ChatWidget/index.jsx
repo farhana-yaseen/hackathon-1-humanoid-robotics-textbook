@@ -13,7 +13,7 @@ const ChatWidget = () => {
       {!isOpen && (
         <button
           onClick={toggleChat}
-          className="chatbot-button bg-blue-500 text-white w-12 h-12 rounded-full shadow-md flex items-center justify-center transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-300 hover:scale-105"
+          className="chatbot-button w-12 h-12 rounded-full shadow-md flex items-center justify-center transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-300"
           aria-label="Open chat"
           style={{
             width: '48px',
@@ -21,7 +21,8 @@ const ChatWidget = () => {
             borderRadius: '50%',
             background: '#3b82f6',
             boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-            transition: 'all 0.2s ease'
+            transition: 'all 0.2s ease',
+            color: 'white'
           }}
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{ width: '20px', height: '20px' }}>

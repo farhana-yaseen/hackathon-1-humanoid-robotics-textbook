@@ -190,118 +190,96 @@ const Chatbot = ({ isEmbedded = false, onClose }) => {
   }}
 >
   {/* Chatbot container */}
-  <div className="bg-white rounded-lg shadow-lg border-gray-300 overflow-hidden transition-all flex flex-col h-auto max-h-[60vh]">
+  <div className="chatbot-container">
 
     {/* Header */}
     <div
-      className={`bg-gray-100 p-2 text-gray-800 flex flex-row items-center justify-between flex-nowrap ${isEmbedded ? '' : 'cursor-move'}`}
+      className="chatbot-header"
       onMouseDown={isEmbedded ? undefined : handleMouseDown}
     >
-      {/* Left side: Chat + Close button */}
+      <h3 className="chatbot-title">Rag Chatbot</h3>
 
-        <h3 className="font-semibold text-sm flex-shrink-0">Rag Chatbot</h3>
-
-        {isEmbedded && onClose && (
-          <button
-            onClick={onClose}
-            className="text-gray-500 hover:text-gray-700 focus:outline-none transition-all px-2 py-1 rounded hover:bg-gray-200"
-            aria-label="Close chat"
-          >
-            {/* Close icon */}
-            X
-          </button>
-        )}
-
+      {isEmbedded && onClose && (
+        <button
+          onClick={onClose}
+          className="chatbot-close-btn"
+          aria-label="Close chat"
+        >
+          ×
+        </button>
+      )}
     </div>
 
-        {/* Language dropdown */}
-        <select
-          value={targetLanguage || ''}
-          onChange={(e) => setTargetLanguage(e.target.value || null)}
-          className="bg-gray-200 text-gray-700 text-xs rounded px-1 py-0.5 border-gray-400 focus:ring-1 focus:ring-gray-500"
-        >
-          <option value="">EN</option>
-          <option value="Urdu">UR</option>
-        </select>
+    {/* Language dropdown */}
+    <select
+      value={targetLanguage || ''}
+      onChange={(e) => setTargetLanguage(e.target.value || null)}
+      className="chatbot-language-selector"
+    >
+      <option value="">EN</option>
+      <option value="Urdu">UR</option>
+    </select>
 
     {/* Messages area */}
-    <div className="flex-1 overflow-y-auto p-2 bg-white space-y-2 max-h-40">
-
+    <div className="chatbot-messages">
       {selectedText && messages.length === 0 && (
-        <div className="flex justify-start">
-          <div className="bg-blue-50 text-gray-700 p-2 rounded-lg max-w-[85%] text-xs">
-            <p className="text-xs italic">{selectedText}</p>
-          </div>
+        <div className="chatbot-message chatbot-message-selected">
+          <p>{selectedText}</p>
         </div>
       )}
 
       {messages.length === 0 && !selectedText && (
-        <div className="text-center py-3 text-xs text-gray-500">
+        <div className="chatbot-welcome">
           Ask anything!
         </div>
       )}
 
       {messages.map((msg, index) => (
-        <div key={index} className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}>
-          <div className={`p-2 rounded-lg text-xs ${
-            msg.type === 'user'
-              ? 'bg-blue-500 text-white rounded-tr-sm'
-              : 'bg-gray-100 text-gray-800 rounded-tl-sm'
-          }`}>
-            <p className="whitespace-pre-wrap">{msg.content}</p>
-          </div>
+        <div key={index} className={`chatbot-message ${msg.type === 'user' ? 'chatbot-message-user' : 'chatbot-message-assistant'}`}>
+          <p className="whitespace-pre-wrap">{msg.content}</p>
         </div>
       ))}
 
       {selectedText && messages.length > 0 && (
-        <div className="flex justify-start">
-          <div className="bg-amber-50 text-gray-700 p-2 rounded-lg max-w-[85%] text-xs">
-            <p className="text-xs italic">{selectedText}</p>
-          </div>
+        <div className="chatbot-message chatbot-message-selected">
+          <p>{selectedText}</p>
         </div>
       )}
 
       {isTyping && (
-        <div className="flex justify-start">
-          <div className="bg-gray-100 text-gray-800 p-2 rounded-lg text-xs">
-            <span className="text-xs text-gray-500">Typing...</span>
-          </div>
+        <div className="chatbot-message chatbot-message-typing">
+          <span>Typing...</span>
         </div>
       )}
     </div>
 
     {/* Input area */}
-    <div className="border-t border-gray-200 p-2 bg-white">
-      <div className="flex space-x-1 ">
-        <input
-          type="text"
-          value={question}
-          placeholder={selectedText ? "Ask..." : "Ask..."}
-          onChange={(e) => setQuestion(e.target.value)}
-          className="flex-1 px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 bg-gray-50 focus:bg-white"
-          onKeyPress={(e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
-              e.preventDefault();
-              if (!isTyping && question.trim()) {
-                handleAsk();
-              }
+    <div className="chatbot-input-area">
+      <textarea
+        value={question}
+        placeholder={selectedText ? "Ask..." : "Ask..."}
+        onChange={(e) => setQuestion(e.target.value)}
+        className="chatbot-input"
+        onKeyPress={(e) => {
+          if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            if (!isTyping && question.trim()) {
+              handleAsk();
             }
-          }}
-          disabled={isTyping}
-        />
-        <button
-          onClick={handleAsk}
-          disabled={!question.trim() || isTyping}
-          className={`py-1 rounded text-white ${
-            !question.trim() || isTyping
-              ? "bg-gray-400 cursor-not-allowed"
-              : "bg-blue-500 hover:bg-blue-600"
-          }`}
-        >
-          Ask me
-          {/* Send icon */}
-        </button>
-      </div>
+          }
+        }}
+        disabled={isTyping}
+        rows="1"
+      />
+      <button
+        onClick={handleAsk}
+        disabled={!question.trim() || isTyping}
+        className="chatbot-send-btn"
+      >
+        <svg className="chatbot-send-btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path>
+        </svg>
+      </button>
     </div>
 
   </div>
