@@ -2,10 +2,7 @@ import google.generativeai as genai
 import os
 from typing import Generator
 
-# Configure Google Generative AI
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-genai.configure(api_key=GEMINI_API_KEY)
-
+# Google Generative AI configuration - will be set dynamically in functions
 MODEL = "gemini-2.5-flash"
 
 def create_chat_session(user_id: str):
@@ -35,6 +32,14 @@ say: "I cannot answer that based on the provided text."
 """
 
     try:
+        # Get the API key from environment
+        gemini_api_key = os.getenv("GEMINI_API_KEY")
+        if not gemini_api_key:
+            yield "Error: GEMINI_API_KEY is not set in environment"
+            return
+
+        # Configure with the API key
+        genai.configure(api_key=gemini_api_key)
         model = genai.GenerativeModel(MODEL)
 
         # Generate content with streaming
@@ -48,4 +53,9 @@ say: "I cannot answer that based on the provided text."
             if chunk.text:
                 yield chunk.text
     except Exception as e:
-        yield f"Error: {str(e)}"
+        error_msg = str(e)
+        # Check if it's specifically an API key error
+        if "API key" in error_msg or "403" in error_msg or "leaked" in error_msg:
+            yield "Error: API key issue. Please check your GEMINI_API_KEY configuration."
+        else:
+            yield f"Error: {error_msg}"
