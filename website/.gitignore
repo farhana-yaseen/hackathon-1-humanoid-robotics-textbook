@@ -1,4 +1,16 @@
 # Dependencies
+# Node
+node_modules
+**/node_modules
+
+# Vercel
+.vercel
+
+# Env
+.env
+
+
+
 /node_modules
 
 # Production
