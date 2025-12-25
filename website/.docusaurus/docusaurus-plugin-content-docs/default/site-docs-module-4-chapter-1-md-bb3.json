@@ -5,7 +5,7 @@
   "source": "@site/docs/module4/chapter1.md",
   "sourceDirName": "module4",
   "slug": "/module4/chapter1",
-  "permalink": "/docs/module4/chapter1",
+  "permalink": "/ur/docs/module4/chapter1",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/farhana-yaseen/hackathon-1-humanoid-robotics-textbook/tree/main/website/docs/module4/chapter1.md",
@@ -15,10 +15,10 @@
   "sidebar": "modulesSidebar",
   "previous": {
     "title": "Module 3: The AI-Robot Brain (NVIDIA Isaac™)",
-    "permalink": "/docs/module3/chapter1"
+    "permalink": "/ur/docs/module3/chapter1"
   },
   "next": {
     "title": "overview",
-    "permalink": "/docs/capstone/overview"
+    "permalink": "/ur/docs/capstone/overview"
   }
 }

@@ -5,7 +5,7 @@
   "source": "@site/docs/module2/chapter1.md",
   "sourceDirName": "module2",
   "slug": "/module2/chapter1",
-  "permalink": "/docs/module2/chapter1",
+  "permalink": "/ur/docs/module2/chapter1",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/farhana-yaseen/hackathon-1-humanoid-robotics-textbook/tree/main/website/docs/module2/chapter1.md",
@@ -15,10 +15,10 @@
   "sidebar": "modulesSidebar",
   "previous": {
     "title": "Module 1: The Robotic Nervous System (ROS 2)",
-    "permalink": "/docs/module1/chapter1"
+    "permalink": "/ur/docs/module1/chapter1"
   },
   "next": {
     "title": "Module 3: The AI-Robot Brain (NVIDIA Isaac™)",
-    "permalink": "/docs/module3/chapter1"
+    "permalink": "/ur/docs/module3/chapter1"
   }
 }
