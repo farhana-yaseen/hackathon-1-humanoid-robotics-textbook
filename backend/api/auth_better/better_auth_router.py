@@ -502,6 +502,23 @@ async def sync_vector(
         raise HTTPException(status_code=500, detail="Internal server error")
 
 
+@router.get("/get-session")
+async def get_session():
+    """
+    Get current session information.
+    For now, returns a default anonymous session.
+    In a real implementation, this would validate session tokens.
+    """
+    # For now, return a default anonymous session
+    # In a real implementation, you would validate the session token from headers/cookies
+    return {
+        "user": None,
+        "isAuthenticated": False,
+        "sessionId": "anonymous-session",
+        "message": "Anonymous session - user not logged in"
+    }
+
+
 @router.get("/health")
 async def auth_health_check():
     """

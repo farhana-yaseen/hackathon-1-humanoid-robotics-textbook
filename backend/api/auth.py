@@ -133,3 +133,20 @@ async def get_user_background(user_id: str):
         raise HTTPException(status_code=404, detail="User not found")
 
     return user.get("background", {})
+
+
+@router.get("/get-session")
+async def get_session():
+    """
+    Get current session information.
+    For now, returns a default anonymous session.
+    In a real implementation, this would validate session tokens.
+    """
+    # For now, return a default anonymous session
+    # In a real implementation, you would validate the session token from headers/cookies
+    return {
+        "user": None,
+        "isAuthenticated": False,
+        "sessionId": "anonymous-session",
+        "message": "Anonymous session - user not logged in"
+    }

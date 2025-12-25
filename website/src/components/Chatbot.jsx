@@ -15,7 +15,7 @@ const Chatbot = ({ isEmbedded = false, onClose }) => {
   // Function to get backend URL safely
   const getBackendURL = () => {
     // Use static default for Docusaurus
-    return "http://localhost:8000/api";
+    return "http://localhost:8000";
   };
 
   const [question, setQuestion] = useState("");
@@ -132,33 +132,50 @@ const Chatbot = ({ isEmbedded = false, onClose }) => {
       // For now, using a direct fetch since the backend endpoint might not match the API client format
       // In a real implementation, we would use apiClient.queryRAG once the backend is properly configured
       const BACKEND_URL = getBackendURL(); // Get the backend URL safely
-      const response = await fetch(
-        `${BACKEND_URL}/selected-chat-stream`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            user_id: 'test',
-            question: question,
-            selected_text: contextToUse
-          })
-        }
-      );
+      // Use GET request with query parameters to match backend API (with /api prefix)
+      const url = `${BACKEND_URL}/api/selected-chat-stream?user_id=test&question=${encodeURIComponent(question)}&selected_text=${encodeURIComponent(contextToUse)}`;
+
+      const response = await fetch(url);
 
       if (!response.ok) {
         const errorText = await response.text();
         throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
       }
 
-      const data = await response.json();
-      const result = data.answer || data.message || "No response received";
+      // Handle streaming response
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let result = "";
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        const chunk = decoder.decode(value, { stream: true });
+        // Process SSE data chunks
+        const lines = chunk.split('\n');
+        for (const line of lines) {
+          if (line.startsWith('data: ')) {
+            const data = line.slice(6); // Remove 'data: ' prefix
+            if (data && data !== '[DONE]') {
+              try {
+                // Update the answer in real-time as we receive data
+                const parsed = JSON.parse(data);
+                const content = parsed.content || parsed.text || parsed.message || data;
+                result += content;
+                setAnswer(prev => prev + content);
+              } catch (e) {
+                // If it's not JSON, treat it as plain text
+                result += data;
+                setAnswer(prev => prev + data);
+              }
+            }
+          }
+        }
+      }
 
       // Translate the response if a target language is selected
       const translatedResult = targetLanguage ? await translateResponse(result, targetLanguage) : result;
-
-      setAnswer(translatedResult);
 
       // Store both original and translated content
       setMessages(prev => [...prev, {

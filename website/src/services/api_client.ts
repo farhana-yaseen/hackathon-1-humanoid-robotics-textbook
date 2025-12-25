@@ -1,8 +1,7 @@
 // API client for the Humanoid Robotics Textbook Platform
-import { useAuth } from '../contexts/AuthContext';
 
 // Base API configuration
-const API_BASE_URL = "http://localhost:8000/api/v1";
+const API_BASE_URL = "http://localhost:8000/api";
 
 // API Client interface
 interface TranslationRequest {
@@ -58,6 +57,8 @@ class ApiClient {
 
   // Translation API methods
   async translateChapter(request: TranslationRequest): Promise<TranslationResponse> {
+    // For translation, we can check if user is authenticated to personalize the experience
+    // but we don't require authentication for basic functionality
     const response = await fetch(`${this.baseUrl}/translation/chapters/${request.chapter_id}/translate`, {
       method: 'POST',
       headers: {
@@ -78,6 +79,7 @@ class ApiClient {
   }
 
   async translateText(request: TranslateTextRequest): Promise<TranslateTextResponse> {
+    // For text translation, we don't require authentication for basic functionality
     const response = await fetch(`${this.baseUrl}/translation/text`, {
       method: 'POST',
       headers: {
@@ -97,6 +99,7 @@ class ApiClient {
   }
 
   async translateChatbotResponse(request: TranslateTextRequest): Promise<TranslateTextResponse> {
+    // For chatbot response translation, we don't require authentication for basic functionality
     const response = await fetch(`${this.baseUrl}/translation/chatbot-response`, {
       method: 'POST',
       headers: {
@@ -117,6 +120,8 @@ class ApiClient {
 
   // RAG API methods
   async createRAGSession(request: CreateSessionRequest): Promise<SessionResponse> {
+    // For RAG sessions, we don't require authentication for basic functionality
+    // Users can have anonymous sessions for basic chat functionality
     const response = await fetch(`${this.baseUrl}/rag/sessions`, {
       method: 'POST',
       headers: {
@@ -135,6 +140,7 @@ class ApiClient {
   }
 
   async queryRAG(request: RAGQueryRequest): Promise<RAGQueryResponse> {
+    // For RAG queries, we don't require authentication for basic functionality
     const response = await fetch(`${this.baseUrl}/rag/query`, {
       method: 'POST',
       headers: {
@@ -154,6 +160,7 @@ class ApiClient {
   }
 
   async setSelectionContext(sessionId: string, selectedText: string): Promise<any> {
+    // For selection context, we don't require authentication for basic functionality
     const response = await fetch(`${this.baseUrl}/rag/selection-context`, {
       method: 'POST',
       headers: {
@@ -173,6 +180,7 @@ class ApiClient {
   }
 
   async clearSelectionContext(sessionId: string): Promise<SessionResponse> {
+    // For clearing selection context, we don't require authentication for basic functionality
     const response = await fetch(`${this.baseUrl}/rag/clear-selection`, {
       method: 'POST',
       headers: {
