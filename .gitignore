@@ -1,10 +1,10 @@
 # Node.js
-/node_modules
+node_modules/
 dist/
 build/
 .cache/
 *.log
-.env*
+.env/
 yarn.lock
 package-lock.json
 .npm
@@ -58,7 +58,7 @@ htmlcov/
 backend/venv/
 backend/.venv/
 backend/env/
-backend/.env
+backend/.env/
 
 # Docusaurus
 .docusaurus/
@@ -131,3 +131,7 @@ desktop.ini
 *.useroptions
 
 2-humanoid-textbook
+# backend folder ke liye
+backend/node_modules/
+backend/.env/
+
