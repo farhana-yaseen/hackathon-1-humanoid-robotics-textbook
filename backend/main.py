@@ -38,7 +38,8 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",
-        "https://hackathon-1-humanoid-robotics-textb.vercel.app"
+        "https://hackathon-1-humanoid-robotics-textb.vercel.app",
+        "https://zunifarha-reg-chatbot.hf.space"
     ],
 
     allow_credentials=True,
