@@ -15,7 +15,8 @@ const Chatbot = ({ isEmbedded = false, onClose }) => {
   // Function to get backend URL safely
   const getBackendURL = () => {
     // Use static default for Docusaurus
-    return "http://localhost:8000";
+    return process.env.REACT_APP_API_BASE ||
+    "https://zunifarha-reg_chatbot.hf.space"
   };
 
   const [question, setQuestion] = useState("");
