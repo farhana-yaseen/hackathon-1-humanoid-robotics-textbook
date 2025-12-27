@@ -1,0 +1,31 @@
+from setuptools import setup, find_packages
+
+setup(
+    name="humanoid-robotics-backend",
+    version="1.0.0",
+    packages=find_packages(),
+    install_requires=[
+        "fastapi==0.115.4",
+        "uvicorn==0.32.0",
+        "pydantic==2.9.2",
+        "pydantic-settings==2.6.1",
+        "sqlalchemy==2.0.35",
+        "asyncpg==0.30.0",
+        "psycopg2-binary==2.9.10",
+        "better-exceptions==0.3.3",
+        "qdrant-client==1.12.1",
+        "python-dotenv==1.0.1",
+        "google-generativeai==0.8.4",
+        "requests==2.32.3",
+        "pyjwt==2.9.0",
+        "passlib[bcrypt]==1.7.4",
+        "python-multipart==0.0.20",
+        "cryptography==42.0.8",
+        "alembic==1.14.0",
+        "pytest==8.3.3",
+        "pytest-asyncio==0.23.7",
+        "httpx==0.27.2",
+        "bcrypt==4.0.1",
+    ],
+    python_requires=">=3.9",
+)

@@ -2,7 +2,7 @@ from sqlalchemy import Column, String, DateTime, Text, Integer
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.sql import func
 import uuid
-from backend.src.database import Base
+from ..database import Base
 
 
 class Chapter(Base):

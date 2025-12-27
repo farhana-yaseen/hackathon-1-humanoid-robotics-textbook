@@ -27,7 +27,7 @@ The humanoid robotics textbook project implements a comprehensive authentication
 **Port**: 3002
 
 **Features**:
-- OAuth authentication (Google, GitHub, etc.)
+- OAuth authentication (Google, GitHub)
 - Email/password authentication
 - Custom user fields for background information
 - Session management
@@ -115,6 +115,8 @@ The humanoid robotics textbook project implements a comprehensive authentication
 AUTH_SECRET=your-super-secret-jwt-key-change-me
 GOOGLE_CLIENT_ID=your-google-client-id
 GOOGLE_CLIENT_SECRET=your-google-client-secret
+GITHUB_CLIENT_ID=your-github-client-id
+GITHUB_CLIENT_SECRET=your-github-client-secret
 DATABASE_URL=file:./auth.db
 PORT=3002
 ```
@@ -175,6 +177,13 @@ NEXT_PUBLIC_BETTER_AUTH_URL=http://localhost:3002
    - `http://localhost:3002/api/auth/callback/google`
 6. Set `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` in `.env`
 
+### GitHub OAuth
+1. Go to GitHub Developer Settings: https://github.com/settings/developers
+2. Create a new OAuth App
+3. Set Homepage URL: `http://localhost:3002`
+4. Set Authorization callback URL: `http://localhost:3002/api/auth/callback/github`
+5. Set `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` in `.env`
+
 ## Security Considerations
 
 - JWT tokens are signed with a secret key
@@ -185,7 +194,7 @@ NEXT_PUBLIC_BETTER_AUTH_URL=http://localhost:3002
 
 ## Future Enhancements
 
-- Additional OAuth providers (GitHub, Microsoft, etc.)
+- Additional OAuth providers (Microsoft, etc.)
 - Two-factor authentication
 - Account verification via email
 - Password reset functionality

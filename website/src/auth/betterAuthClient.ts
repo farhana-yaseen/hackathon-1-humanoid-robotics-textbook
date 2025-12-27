@@ -17,7 +17,7 @@ export interface UserBackground {
 export const authClient = createAuthClient({
   baseURL:
     (typeof window !== 'undefined' && (window as any).betterAuthUrl) ||
-    "http://localhost:8000", // Use fallback for development
+    "http://localhost:3002", // Use fallback for development
   fetchConfig: betterFetch,
 });
 
